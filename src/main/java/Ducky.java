@@ -40,16 +40,38 @@ public class Ducky {
             if (command.equalsIgnoreCase("bye")) {
                 exit();
                 break;
+
             } else if (command.equalsIgnoreCase("list")) {
                 list();
+
             } else if (command.startsWith("mark")) {
                 int taskId = Integer.parseInt(command.substring(5));
                 memory.get(taskId - 1).changeStat();
                 speak(String.format("Sure! I've marked this task as done!\n\t%s", memory.get(taskId - 1)));
+
             } else if (command.startsWith("unmark")) {
                 int taskId = Integer.parseInt(command.substring(7));
                 memory.get(taskId - 1).changeStat();
                 speak(String.format("Sure! I've marked this task as not done!\n\t%s", memory.get(taskId - 1)));
+
+            } else if (command.startsWith("todo")) {
+                memory.add(new ToDo(command.substring(5)));
+                speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.",
+                        memory.get(memory.size()-1), memory.size()));
+
+            } else if (command.startsWith("deadline")) {
+                String[] data = command.substring(9).split("/by ");
+                memory.add(new Deadline(data[0], data[1]));
+                speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.",
+                        memory.get(memory.size()-1), memory.size()));
+
+            } else if (command.startsWith("event")) {
+                String[] desc = command.substring(6).split("/from ");
+                String[] times = desc[1].split(" /to ");
+                memory.add(new Event(desc[0], times[0], times[1]));
+                speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.",
+                        memory.get(memory.size()-1), memory.size()));
+
             } else {
                 speak("Remembering: " + command);
                 memory.add(new Task(command));
