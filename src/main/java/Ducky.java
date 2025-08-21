@@ -42,13 +42,37 @@ public class Ducky {
                 break;
 
             } else if (command.equalsIgnoreCase("list")) {
-                if (memory.size() == 0) {
+                if (memory.isEmpty()) {
                     speak("No tasks yet!");
                 } else {
                     list();
                 }
 
-            } else if (command.startsWith("mark")) {
+            } else if (command.startsWith("delete")) {
+                    if (memory.isEmpty()) {
+                        speak("No tasks to delete!");
+                    } else {
+                        try {
+                            if (command.length() == 6) {
+                                throw new EmptySelectorException("delete");
+                            }
+
+                            int taskId = Integer.parseInt(command.substring(7));
+                            if (taskId > memory.size()) {
+                                throw new InvalidSelectorException();
+                            }
+                            Task temp = memory.get(taskId - 1);
+                            memory.remove(taskId - 1);
+                            speak(String.format("Gotcha! I've deleted:\n\t\t%s\n\tNow you have a total of %d tasks.",
+                                    temp, memory.size()));
+                        } catch (NumberFormatException e) {
+                            speak("Invalid task ID! Make sure you use a number!");
+                        } catch (DuckyExceptions e) {
+                            speak(e.getMessage());
+                        }
+                    }
+
+                } else if (command.startsWith("mark")) {
                 try {
                     if (command.length() == 4) {
                         throw new InvalidSelectorException();
