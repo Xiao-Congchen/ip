@@ -2,8 +2,12 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ducky {
-    private static final String DIVLINE = "\t------------------------------";
-    private static ArrayList<Task> memory = new ArrayList<Task>();
+    private static final String DIVLINE = "\t-------------------------------------";
+    private static final ArrayList<Task> memory = new ArrayList<Task>();
+
+    public enum CommandTypes {
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE
+    }
 
     public static void main(String[] args) {
         greet();
@@ -12,7 +16,7 @@ public class Ducky {
 
     private static void speak(String msg) {
         System.out.println(DIVLINE);
-        System.out.println("\t" + msg + "\n\tQuack!");
+        System.out.println("\t" + msg);
         System.out.println(DIVLINE);
     }
 
@@ -20,8 +24,27 @@ public class Ducky {
         speak("Hi I'm Ducky!\n\tHow can I help you?");
     }
 
-    private static void exit() {
-        speak("Bye! See you soon!");
+    private static void echo() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            try {
+                String command = scanner.nextLine().trim();
+                if (command.isEmpty()) throw new EmptyCommandException();
+                String[] keywordAndRest = command.split(" ", 2);
+                if (keywordAndRest.length == 1 && keywordAndRest[0].equalsIgnoreCase("bye")) {
+                    bye();
+                    break;
+                } else {
+                    executeCommand(keywordAndRest);
+                }
+            } catch (DuckyExceptions e) {
+                speak(e.getMessage());
+            }
+        }
+    }
+
+    private static void bye() {
+        speak("Bye bye! See you soon!");
     }
 
     private static void list() {
@@ -29,147 +52,87 @@ public class Ducky {
         for (int i = 0; i < memory.size(); i++) {
             content.append(String.format("\t%d. %s\n", i + 1, memory.get(i)));
         }
-        speak(String.valueOf(content).substring(1));
+        speak("Here is your Task List! Quackk" + content.toString().trim());
     }
 
-    private static void echo() {
-        Scanner scanner = new Scanner(System.in);
+    public static void addTask(Task newTask) {
+        memory.add(newTask);
+        speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.",
+                memory.get(memory.size()-1), memory.size()));
+    }
 
-        while (true) {
-            String command = scanner.nextLine();
-            if (command.equalsIgnoreCase("bye")) {
-                exit();
+    public static void toggleMark(int taskId, Boolean state) {
+        memory.get(taskId - 1).setStat(state);
+        speak(String.format("Quack! I've marked this task as %s!\n\t%s",
+                state ? "done" : "not done", memory.get(taskId - 1)));
+    }
+
+    public static int checkValidSelector(String num, String selector) throws DuckyExceptions{
+        if (num.isEmpty()) throw new EmptySelectorException(selector);
+        try {
+            int taskId = Integer.parseInt(num);
+            if (taskId < 1 || taskId > memory.size()) throw new InvalidSelectorException();
+            return taskId;
+        } catch (NumberFormatException e) {
+            throw new InvalidSelectorException();
+        }
+    }
+
+    public static void executeCommand(String[] keywordAndRest) throws DuckyExceptions {
+        String cmdType = keywordAndRest[0].toUpperCase();
+        String rest;
+        if (keywordAndRest.length == 2) {
+            rest = keywordAndRest[1];
+        } else {
+            rest = "";
+        }
+
+        CommandTypes type;
+        try {
+            type = CommandTypes.valueOf(cmdType);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidCommandException();
+        }
+
+        switch(type) {
+            case TODO:
+                addTask(new ToDo(rest));
                 break;
 
-            } else if (command.equalsIgnoreCase("list")) {
+            case DEADLINE:
+                addTask(new Deadline(rest));
+                break;
+
+            case EVENT:
+                addTask(new Event(rest));
+                break;
+
+            case LIST:
                 if (memory.isEmpty()) {
-                    speak("No tasks yet!");
+                    speak("Pond's all clear - no tasks yet!");
                 } else {
                     list();
                 }
+                break;
 
-            } else if (command.startsWith("delete")) {
-                    if (memory.isEmpty()) {
-                        speak("No tasks to delete!");
-                    } else {
-                        try {
-                            if (command.length() == 6) {
-                                throw new EmptySelectorException("delete");
-                            }
+            case MARK:
+                toggleMark(checkValidSelector(rest, "mark"), true);
+                break;
 
-                            int taskId = Integer.parseInt(command.substring(7));
-                            if (taskId > memory.size()) {
-                                throw new InvalidSelectorException();
-                            }
-                            Task temp = memory.get(taskId - 1);
-                            memory.remove(taskId - 1);
-                            speak(String.format("Gotcha! I've deleted:\n\t\t%s\n\tNow you have a total of %d tasks.",
-                                    temp, memory.size()));
-                        } catch (NumberFormatException e) {
-                            speak("Invalid task ID! Make sure you use a number!");
-                        } catch (DuckyExceptions e) {
-                            speak(e.getMessage());
-                        }
-                    }
+            case UNMARK:
+                toggleMark(checkValidSelector(rest, "unmark"), false);
+                break;
 
-                } else if (command.startsWith("mark")) {
-                try {
-                    if (command.length() == 4) {
-                        throw new InvalidSelectorException();
-                    }
+            case DELETE:
+                int taskId = checkValidSelector(rest, "mark");
+                Task temp = memory.get(taskId - 1);
+                memory.remove(taskId - 1);
+                speak(String.format("Gotcha! I've deleted:\n\t\t%s\n\tNow you have a total of %d tasks!",
+                        temp, memory.size()));
+                break;
 
-                    int taskId = Integer.parseInt(command.substring(5));
-                    if (taskId > memory.size()) {
-                        throw new InvalidSelectorException();
-                    }
-                    memory.get(taskId - 1).changeStat();
-                    speak(String.format("Sure! I've marked this task as done!\n\t%s", memory.get(taskId - 1)));
-
-                } catch (NumberFormatException e) {
-                    speak("Invalid task ID! Make sure you use a number!");
-                } catch (InvalidSelectorException e) {
-                    speak(e.getMessage());
-                }
-
-            } else if (command.startsWith("unmark")) {
-                try {
-                    if (command.length() == 6) {
-                        throw new InvalidSelectorException();
-                    }
-
-                    int taskId = Integer.parseInt(command.substring(7));
-                    if (taskId > memory.size()) {
-                        throw new InvalidSelectorException();
-                    }
-                    memory.get(taskId - 1).changeStat();
-                    speak(String.format("Sure! I've marked this task as not done!\n\t%s", memory.get(taskId - 1)));
-                } catch (NumberFormatException e) {
-                    speak("Invalid task ID! Make sure you use a number!");
-                } catch (InvalidSelectorException e) {
-                    speak(e.getMessage());
-                }
-
-            } else if (command.startsWith("todo")) {
-                try {
-                    if (command.length() == 4) {
-                        throw new EmptyDescException();
-                    }
-                    String desc = command.substring(5);
-                    if (desc.isBlank()) {
-                        throw new EmptyDescException();
-                    }
-                    memory.add(new ToDo(desc));
-                    speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.",
-                            memory.get(memory.size()-1), memory.size()));
-                } catch (EmptyDescException e) {
-                    speak(e.getMessage());
-                }
-
-            } else if (command.startsWith("deadline")) {
-                try {
-                    if (command.length() == 8) {
-                        throw new EmptyDescException();
-                    }
-                    String[] data = command.substring(9).split("/by ");
-                    if (data.length == 0) {
-                        throw new EmptyDescException();
-                    } else if (data.length == 1) {
-                        throw new EmptyDateException("by");
-                    }
-                    memory.add(new Deadline(data[0], data[1]));
-                    speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.",
-                            memory.get(memory.size()-1), memory.size()));
-
-                } catch (DuckyExceptions e) {
-                    speak(e.getMessage());
-                }
-
-            } else if (command.startsWith("event")) {
-                try {
-                    if (command.length() == 5) {
-                        throw new EmptyDescException();
-                    }
-                    String[] desc = command.substring(6).split("/from ");
-                    if (desc.length == 0) {
-                        throw new EmptyDescException();
-                    } else if (desc.length == 1) {
-                        throw new EmptyDateException("from");
-                    }
-
-                    String[] times = desc[1].split(" /to ");
-                    if (times.length == 1) {
-                        throw new EmptyDateException("to");
-                    }
-                    memory.add(new Event(desc[0], times[0], times[1]));
-                    speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.",
-                            memory.get(memory.size()-1), memory.size()));
-                } catch (DuckyExceptions e) {
-                    speak(e.getMessage());
-                }
-
-            } else {
-                speak("Sorry, I do not understand your directions :(");
-            }
+            default:
+                throw new InvalidCommandException();
         }
     }
 }

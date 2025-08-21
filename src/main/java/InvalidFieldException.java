@@ -1,5 +1,5 @@
-public class InvalidFieldException extends DuckyExceptions {
-    public InvalidFieldException(String msg) {
-        super(msg);
+public class InvalidFieldException extends InvalidException {
+    public InvalidFieldException(String fieldName) {
+        super("That's an invalid " + fieldName + " value! My duck brain can’t process that.");
     }
 }

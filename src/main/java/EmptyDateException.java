@@ -1,5 +1,5 @@
-public class EmptyDateException extends EmptyFieldException {
+public class EmptyDateException extends EmptyException {
     public EmptyDateException(String fieldName) {
-        super("Please include the " + fieldName + " date/time!");
+        super("No " + fieldName + "? Guess I’ll just float around until you tell me :/");
     }
 }

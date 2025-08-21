@@ -1,5 +1,5 @@
-public class EmptySelectorException extends EmptyFieldException {
+public class EmptySelectorException extends EmptyException {
     public EmptySelectorException(String operation) {
-        super("Please select a task to " + operation);
+        super("Quackkk~ Please choose a task to " + operation + "!");
     }
 }

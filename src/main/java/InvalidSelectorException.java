@@ -1,5 +1,5 @@
-public class InvalidSelectorException extends InvalidFieldException {
+public class InvalidSelectorException extends InvalidException {
     public InvalidSelectorException() {
-        super("Please select a task within the list");
+        super("Hmm, I can’t find that task. Did you drop it in the pond?");
     }
 }

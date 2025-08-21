@@ -1,5 +1,5 @@
-public class EmptyDescException extends EmptyFieldException {
+public class EmptyDescException extends EmptyException {
     public EmptyDescException() {
-        super("Please include a task description!");
+        super("Quack! You forgot to tell me what the task is about. I can’t swim without water!");
     }
 }

@@ -11,8 +11,8 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void changeStat() {
-        this.isDone = !isDone;
+    public void setStat(Boolean stat) {
+        this.isDone = stat;
     }
 
    @Override
