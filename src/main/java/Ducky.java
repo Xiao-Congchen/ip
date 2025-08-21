@@ -127,7 +127,7 @@ public class Ducky {
                 int taskId = checkValidSelector(rest, "mark");
                 Task temp = memory.get(taskId - 1);
                 memory.remove(taskId - 1);
-                speak(String.format("Gotcha! I've deleted:\n\t\t%s\n\tNow you have a total of %d tasks!",
+                speak(String.format("Noms! I've gobbled up:\n\t\t%s\n\tNow you have a total of %d tasks!",
                         temp, memory.size()));
                 break;
 
