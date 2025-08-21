@@ -1,0 +1,32 @@
+t
+afefe
+aejaegeagajo feeaia aheugaj
+todo
+todo a
+deadline
+deadline b
+deadline b /by
+deadline b /by 14
+event
+event c
+event c /from
+event c /from 12
+event c /from 12 /to
+event c /from 12 /to 15
+list
+mark
+mark 1
+list
+mark 4
+mark -3
+mark 2
+unmark
+unmark 1
+list
+unmark -2
+unmark 1
+list
+delete
+delete 3
+list
+bye

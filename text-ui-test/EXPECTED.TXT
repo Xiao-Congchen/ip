@@ -1,7 +1,132 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	-------------------------------------
+	Hi I'm Ducky!
+	How can I help you?
+	-------------------------------------
+	-------------------------------------
+	Unknown command. My duck brain can’t process that...
+	You can try:
+	todo, deadline, event, list, mark, unmark, delete, bye
+	-------------------------------------
+	-------------------------------------
+	Unknown command. My duck brain can’t process that...
+	You can try:
+	todo, deadline, event, list, mark, unmark, delete, bye
+	-------------------------------------
+	-------------------------------------
+	Unknown command. My duck brain can’t process that...
+	You can try:
+	todo, deadline, event, list, mark, unmark, delete, bye
+	-------------------------------------
+	-------------------------------------
+	Quack! You forgot to tell me what the task is about. I can’t swim without water!
+	-------------------------------------
+	-------------------------------------
+	Gotcha! I've added:
+		[T][ ] a
+	Now you have a total of 1 tasks.
+	-------------------------------------
+	-------------------------------------
+	Quack! You forgot to tell me what the task is about. I can’t swim without water!
+	-------------------------------------
+	-------------------------------------
+	No '/by'? Welp guess I’ll just float around until you tell me :/
+	-------------------------------------
+	-------------------------------------
+	That's an invalid '/by' date/time! Quack twice and try again~
+	-------------------------------------
+	-------------------------------------
+	Gotcha! I've added:
+		[D][ ] b (by: 14)
+	Now you have a total of 2 tasks.
+	-------------------------------------
+	-------------------------------------
+	Quack! You forgot to tell me what the task is about. I can’t swim without water!
+	-------------------------------------
+	-------------------------------------
+	No '/from'? Welp guess I’ll just float around until you tell me :/
+	-------------------------------------
+	-------------------------------------
+	That's an invalid '/from' date/time! Quack twice and try again~
+	-------------------------------------
+	-------------------------------------
+	No '/to'? Welp guess I’ll just float around until you tell me :/
+	-------------------------------------
+	-------------------------------------
+	That's an invalid '/to' date/time! Quack twice and try again~
+	-------------------------------------
+	-------------------------------------
+	Gotcha! I've added:
+		[E][ ] c (From: 12 To: 15)
+	Now you have a total of 3 tasks.
+	-------------------------------------
+	-------------------------------------
+	Here is your Task List! Quackk
+	1. [T][ ] a
+	2. [D][ ] b (by: 14)
+	3. [E][ ] c (From: 12 To: 15)
+	-------------------------------------
+	-------------------------------------
+	Quackkk~ Please choose a task to mark!
+	-------------------------------------
+	-------------------------------------
+	Quack! I've marked this task as done!
+	[T][X] a
+	-------------------------------------
+	-------------------------------------
+	Here is your Task List! Quackk
+	1. [T][X] a
+	2. [D][ ] b (by: 14)
+	3. [E][ ] c (From: 12 To: 15)
+	-------------------------------------
+	-------------------------------------
+	Hmm, I can’t find that task. Did you drop it in the pond?
+	-------------------------------------
+	-------------------------------------
+	Hmm, I can’t find that task. Did you drop it in the pond?
+	-------------------------------------
+	-------------------------------------
+	Quack! I've marked this task as done!
+	[D][X] b (by: 14)
+	-------------------------------------
+	-------------------------------------
+	Quackkk~ Please choose a task to unmark!
+	-------------------------------------
+	-------------------------------------
+	Quack! I've marked this task as not done!
+	[T][ ] a
+	-------------------------------------
+	-------------------------------------
+	Here is your Task List! Quackk
+	1. [T][ ] a
+	2. [D][X] b (by: 14)
+	3. [E][ ] c (From: 12 To: 15)
+	-------------------------------------
+	-------------------------------------
+	Hmm, I can’t find that task. Did you drop it in the pond?
+	-------------------------------------
+	-------------------------------------
+	Quack! I've marked this task as not done!
+	[T][ ] a
+	-------------------------------------
+	-------------------------------------
+	Here is your Task List! Quackk
+	1. [T][ ] a
+	2. [D][X] b (by: 14)
+	3. [E][ ] c (From: 12 To: 15)
+	-------------------------------------
+	-------------------------------------
+	Quackkk~ Please choose a task to mark!
+	-------------------------------------
+	-------------------------------------
+	Noms! I've gobbled up:
+		[E][ ] c (From: 12 To: 15)
+	Now you have a total of 2 tasks!
+	-------------------------------------
+	-------------------------------------
+	Here is your Task List! Quackk
+	1. [T][ ] a
+	2. [D][X] b (by: 14)
+	-------------------------------------
+	-------------------------------------
+	Bye bye! See you soon!
+	-------------------------------------

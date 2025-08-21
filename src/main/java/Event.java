@@ -19,7 +19,7 @@ public class Event extends Task {
         if (descFromTo.length == 1 || descFromTo[1].trim().isEmpty()) {
             throw new InvalidDateException("'/from'");
         }
-        return descFromTo[1].trim();
+        return descFromTo[1].split("/")[0].trim();
     }
 
     private static String parseTo(String info) throws DuckyExceptions {

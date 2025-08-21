@@ -52,7 +52,7 @@ public class Ducky {
         for (int i = 0; i < memory.size(); i++) {
             content.append(String.format("\t%d. %s\n", i + 1, memory.get(i)));
         }
-        speak("Here is your Task List! Quackk" + content.toString().trim());
+        speak("Here is your Task List! Quackk\n\t" + content.toString().trim());
     }
 
     public static void addTask(Task newTask) {
