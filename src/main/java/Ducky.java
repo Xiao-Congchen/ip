@@ -1,19 +1,38 @@
+import java.util.Scanner;
+
 public class Ducky {
-    private static final String DIVLINE = "------------------------------";
+    private static final String DIVLINE = "\t------------------------------";
 
     public static void main(String[] args) {
         greet();
-        exit();
+        echo();
+    }
+
+    public static void speak(String msg) {
+        System.out.println(DIVLINE);
+        System.out.println("\t" + msg + "\n\tQuack!");
+        System.out.println(DIVLINE);
     }
 
     public static void greet() {
-        System.out.println(DIVLINE);
-        System.out.println("Quack! I am Ducky!\nHow can I help you?");
-        System.out.println(DIVLINE);
+        speak("Hi I'm Ducky!\n\tHow can I help you?");
     }
 
     public static void exit() {
-        System.out.println("Bye! See you soon!");
-        System.out.println(DIVLINE);
+        speak("Bye! See you soon!");
+    }
+
+    public static void echo() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String command = scanner.nextLine();
+            if (command.equalsIgnoreCase("bye")) {
+                exit();
+                break;
+            } else {
+                speak(command);
+            }
+        }
     }
 }
