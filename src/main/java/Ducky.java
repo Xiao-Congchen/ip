@@ -1,24 +1,25 @@
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ducky {
     private static final String DIVLINE = "\t-------------------------------------";
     private static final ArrayList<Task> memory = new ArrayList<Task>();
+    private static final String taskPath = String.format("..%s..%sdata%stasks.txt",
+            File.separator, File.separator, File.separator);
+    private static final Storage storage = new Storage(taskPath);
 
     public enum CommandTypes {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE
     }
 
     public static void main(String[] args) {
-        greet();
-        echo();
-    }
-
-    private static void greet() {
         speak("Hi I'm Ducky!\n\tHow can I help you?");
+
+        start();
     }
 
-    private static void echo() {
+    private static void start() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
@@ -53,17 +54,22 @@ public class Ducky {
             throw new InvalidCommandException();
         }
 
+        ArrayList<String> vars;
+
         switch(type) {
         case TODO:
-            addTask(new ToDo(rest));
+            vars = Parser.parse("T", rest);
+            addTask(new ToDo(vars.get(0), false));
             break;
 
         case DEADLINE:
-            addTask(new Deadline(rest));
+            vars = Parser.parse("D", rest);
+            addTask(new Deadline(vars.get(0), false, vars.get(1)));
             break;
 
         case EVENT:
-            addTask(new Event(rest));
+            vars = Parser.parse("E", rest);
+            addTask(new Event(vars.get(0), false, vars.get(1), vars.get(2)));
             break;
 
         case LIST:
@@ -103,6 +109,9 @@ public class Ducky {
 
     private static void bye() {
         speak("Bye bye! See you soon!");
+        if (!storage.save(memory)) {
+            speak("Your tasks have been lost to the pond... Quack...");
+        };
     }
 
     private static void list() {
