@@ -31,6 +31,15 @@ public class Event extends Task {
         return descFromTo[1].trim();
     }
 
+    /**
+     * Returns a readable, easy-to-parse format for storage use
+     * @return String representation of event
+     */
+    public String getStoreFormat() {
+        // 1 means done(marked), 0 means not done(unmarked)
+        return String.format("T | %d | %s | %s | %s", isDone ? 1 : 0, desc, from, to);
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + String.format(" (From: %s To: %s)", this.from, this.to);
