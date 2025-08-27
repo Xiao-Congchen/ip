@@ -1,6 +1,4 @@
 public class ToDo extends Task {
-
-
     public ToDo(String desc, boolean state) {
         super(desc);
         this.isDone = state;
