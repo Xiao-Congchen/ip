@@ -1,9 +1,10 @@
 public class Deadline extends Task {
     protected String by;
 
-    public Deadline(String info) throws DuckyExceptions {
-        super(parseDesc(info));
-        this.by = parseBy(info);
+    public Deadline(String desc, boolean marked, String by) {
+        super(desc);
+        this.isDone = marked;
+        this.by = by;
     }
 
     private static String parseDesc(String info) throws EmptyDescException {
