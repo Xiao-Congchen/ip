@@ -1,10 +1,8 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Represents a specific type of Task that has a
  * "/by" variable to store a task completion deadline.
  */
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
     protected LocalDateTime by;
