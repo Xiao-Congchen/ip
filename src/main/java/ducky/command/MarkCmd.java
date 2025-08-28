@@ -20,7 +20,7 @@ public class MarkCmd extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
-        taskList.toggleMark(taskId, isDone);
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
+        return taskList.toggleMark(taskId, isDone);
     }
 }

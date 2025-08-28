@@ -16,11 +16,14 @@ public class Ui {
         System.out.println(DIVLINE);
     }
 
-    public void bye(Storage storage, TaskList taskList) {
-        speak("Bye bye! See you soon!");
+    public String bye(Storage storage, TaskList taskList) {
+        String msg = "Bye bye! See you soon!";
+        speak(msg);
         if (!storage.save(taskList.getAll())) {
-            speak("Your tasks have been lost to the pond... Quack...");
+            msg = "Your tasks have been lost to the pond... Quack...";
+            speak(msg);
         };
+        return msg;
     }
 
 }

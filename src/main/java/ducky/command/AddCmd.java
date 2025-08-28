@@ -22,7 +22,7 @@ public class AddCmd extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
-        taskList.addTask(type, vars);
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
+        return taskList.addTask(type, vars);
     }
 }

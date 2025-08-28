@@ -17,11 +17,11 @@ public class DeleteCmd extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
         if (taskId > 0) {
-            taskList.delete(taskId);
+            return taskList.delete(taskId);
         } else {
-            taskList.clear();
+            return taskList.clear();
         }
 
     }

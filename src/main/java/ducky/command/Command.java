@@ -11,5 +11,5 @@ public abstract class Command {
 
     public abstract boolean isBye();
 
-    public abstract void execute(Ui ui, Storage storage, TaskList taskList);
+    public abstract String execute(Ui ui, Storage storage, TaskList taskList);
 }

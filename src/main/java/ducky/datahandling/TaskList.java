@@ -20,52 +20,62 @@ public class TaskList {
         this.ui = ui;
     }
 
-    public void addTask(String type, ArrayList<Object> vars) {
+    public String addTask(String type, ArrayList<Object> vars) {
+        String msg = "";
         switch(type) {
         case "T":
-            addTaskHelper(new ToDo((String)vars.get(0), false));
+            msg = addTaskHelper(new ToDo((String)vars.get(0), false));
             break;
         case "D":
-            addTaskHelper(new Deadline((String)vars.get(0), false, (LocalDateTime)vars.get(1)));
+            msg = addTaskHelper(new Deadline((String)vars.get(0), false, (LocalDateTime)vars.get(1)));
             break;
         case "E":
-            addTaskHelper(new Event((String)vars.get(0), false,
+            msg = addTaskHelper(new Event((String)vars.get(0), false,
                     (LocalDateTime)vars.get(1), (LocalDateTime)vars.get(2)));
             break;
         }
+        return msg;
     }
 
-    private void addTaskHelper(Task newTask) {
+    private String addTaskHelper(Task newTask) {
         memory.add(newTask);
         String addOn = "";
         if (!storage.save(memory)) {
             addOn = "\nBut I couldn't send this task to the clouds... Quack...";
         };
-        ui.speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.%s",
-                memory.get(memory.size()-1), memory.size(), addOn));
+        String msg = String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.%s",
+                memory.get(memory.size()-1), memory.size(), addOn);
+        ui.speak(msg);
         storage.save(memory);
+        return msg;
     }
 
-    public void list() {
+    public String list() {
         StringBuilder content = new StringBuilder();
         for (int i = 0; i < memory.size(); i++) {
             content.append(String.format("\t%d. %s\n", i + 1, memory.get(i)));
         }
-        ui.speak("Here is your Task List! Quackk\n\t" + content.toString().trim());
+        String msg = "Here is your Task List! Quackk\n\t" + content.toString().trim();
+        ui.speak(msg);
+        return msg;
     }
 
-    public void toggleMark(int taskId, Boolean markState) {
+    public String toggleMark(int taskId, Boolean markState) {
         memory.get(taskId - 1).setStat(markState);
-        ui.speak(String.format("Quack! I've marked this task as %s!\n\t%s",
-                markState ? "done" : "not done", memory.get(taskId - 1)));
+        String msg = String.format("Quack! I've marked this task as %s!\n\t%s",
+                markState ? "done" : "not done", memory.get(taskId - 1));
+        ui.speak(msg);
+        return msg;
     }
 
-    public void delete(int taskId) {
+    public String delete(int taskId) {
         Task temp = memory.get(taskId - 1);
         memory.remove(taskId - 1);
-        ui.speak(String.format("Noms! I've gobbled up:\n\t\t%s\n\tNow you have a total of %d tasks!",
-                temp, memory.size()));
+        String msg = String.format("Noms! I've gobbled up:\n\t\t%s\n\tNow you have a total of %d tasks!",
+                temp, memory.size());
+        ui.speak(msg);
         storage.save(memory);
+        return msg;
     }
 
     public Task get(int index) {
@@ -84,10 +94,12 @@ public class TaskList {
         memory.remove(index);
     }
 
-    public void clear() {
+    public String clear() {
         memory.clear();
-        ui.speak("I've cleared all your tasks!\n\tGood job and keep on quacking!");
+        String msg = "I've cleared all your tasks!\n\tGood job and keep on quacking!";
+        ui.speak(msg);
         storage.save(memory);
+        return msg;
     }
 
     public boolean isEmpty() {
