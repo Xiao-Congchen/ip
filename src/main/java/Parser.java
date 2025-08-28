@@ -66,7 +66,6 @@ public class Parser {
         if (dateAndTime.length == 2) {
             DateTimeFormatter customFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             try {
-                LocalDateTime temp = LocalDateTime.parse(date, customFormat);
                 return LocalDateTime.parse(date, customFormat);
             } catch (DateTimeParseException e) {
                 throw new InvalidDateException(fieldName);

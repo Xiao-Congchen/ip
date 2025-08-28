@@ -1,6 +1,3 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Represents an abstract task with a description and a marked status.
  *
@@ -53,21 +50,6 @@ public abstract class Task {
      * @return String representation of task
      */
     public abstract String getStoreFormat();
-
-    public String friendlyDate(LocalDateTime dateTime) {
-        String niceDateTime = dateTime.format(DateTimeFormatter.ofPattern("d'th' 'of' MMMM yyyy, h:mma"));
-        if (niceDateTime.startsWith("1th")) {
-            niceDateTime = niceDateTime.replace("th" ,"st");
-        } else if (niceDateTime.startsWith("2th")) {
-            niceDateTime = niceDateTime.replace("th" ,"nd");
-        } else if (niceDateTime.startsWith("3th")) {
-            niceDateTime = niceDateTime.replace("th" ,"rd");
-        }
-        if (niceDateTime.contains(":00")) {
-            niceDateTime = niceDateTime.replace(":00", "");
-        }
-        return niceDateTime;
-    }
 
    @Override
     public String toString() {

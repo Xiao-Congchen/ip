@@ -26,6 +26,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + String.format(" (From: %s To: %s)",
-                friendlyDate(this.from), friendlyDate(this.to));
+                StringifyDate.friendlyDate(this.from), StringifyDate.friendlyDate(this.to));
     }
 }
