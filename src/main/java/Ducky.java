@@ -55,7 +55,5 @@ public class Ducky {
         } catch (DuckyExceptions e) {
             return e.getMessage();
         }
-
-
     }
 }
