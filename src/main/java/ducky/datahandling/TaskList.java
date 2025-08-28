@@ -51,7 +51,7 @@ public class TaskList {
         for (int i = 0; i < memory.size(); i++) {
             content.append(String.format("\t%d. %s\n", i + 1, memory.get(i)));
         }
-        ui.speak("Here is your ducky.task.Task List! Quackk\n\t" + content.toString().trim());
+        ui.speak("Here is your Task List! Quackk\n\t" + content.toString().trim());
     }
 
     public void toggleMark(int taskId, Boolean markState) {
