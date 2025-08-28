@@ -1,13 +1,21 @@
+/**
+ * The Ducky chatbot is a task tracker that helps
+ * users manage their tasks through text commands.
+ *
+ * It supports commands for adding, listing, marking, unmarking,
+ * and deleting tasks, as well as saving and loading tasks from storage
+ * between sessions.
+ * Tasks are stored as specific types, namely ToDo, Deadline, and Event.
+ */
+
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ducky {
     private static final String DIVLINE = "\t-------------------------------------";
-    private static final ArrayList<Task> memory = new ArrayList<Task>();
-    private static final String taskPath = String.format("..%s..%sdata%stasks.txt",
-            File.separator, File.separator, File.separator);
-    private static final Storage storage = new Storage(taskPath);
+    private static ArrayList<Task> memory;
+    private static final Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
 
     public enum CommandTypes {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE
@@ -15,17 +23,18 @@ public class Ducky {
 
     public static void main(String[] args) {
         speak("Hi I'm Ducky!\n\tHow can I help you?");
-
         start();
     }
 
     private static void start() {
+        memory = storage.read();  // Load in existing tasks, if any
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
                 String command = scanner.nextLine().trim();
                 if (command.isEmpty()) throw new EmptyCommandException();
                 String[] keywordAndRest = command.split(" ", 2);
+
                 if (keywordAndRest.length == 1 && keywordAndRest[0].equalsIgnoreCase("bye")) {
                     bye();
                     break;
@@ -124,8 +133,12 @@ public class Ducky {
 
     private static void addTask(Task newTask) {
         memory.add(newTask);
-        speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.",
-                memory.get(memory.size()-1), memory.size()));
+        String addOn = "";
+        if (!storage.save(memory)) {
+           addOn = "\nBut I couldn't send this task to the clouds... Quack...";
+        };
+        speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.%s",
+                memory.get(memory.size()-1), memory.size(), addOn));
     }
 
     private static void toggleMark(int taskId, Boolean markState) {
