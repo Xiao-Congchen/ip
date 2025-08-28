@@ -1,5 +1,6 @@
 @ECHO OFF
 
+REM always run the test from the project root
 cd ..
 
 REM create bin directory if it doesn't exist
