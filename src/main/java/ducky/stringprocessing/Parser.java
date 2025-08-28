@@ -1,3 +1,9 @@
+/**
+ * The Parser helps to process evey user input into an appropriate Command.
+ * Possible command types include: Add, Bye, List, Mark, Delete.
+ * It will also throw the relevant exceptions faced while parsing.
+ */
+
 package ducky.stringprocessing;
 
 import ducky.command.Command;
@@ -16,7 +22,6 @@ import ducky.exception.EmptySelectorException;
 import ducky.exception.InvalidSelectorException;
 import ducky.exception.InvalidDateException;
 
-
 import java.util.ArrayList;
 
 import java.time.LocalDateTime;
@@ -24,7 +29,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-
+    /**
+     * Returns a specific Command object based on input.
+     * Appropriate DuckyException will be thrown during the validation process.
+     *
+     * @param input User-defined command string.
+     * @param listSize Size of current task list.
+     * @return Command object.
+     * @throws DuckyExceptions if presence and type validations fail.
+     */
     public static Command parse(String input, int listSize) throws DuckyExceptions {
         if (input.isEmpty()) throw new EmptyCommandException();
         String[] keywordAndRest = input.split(" ", 2);
@@ -126,7 +139,7 @@ public class Parser {
     }
 
     /**
-     * Returns a standardised
+     * Returns a standardised ISO date to be used with the DateTime object.
      * @param date A string-form date
      * @return An ISO8601-format date
      */

@@ -1,3 +1,8 @@
+/**
+ * Ui handles all the elements the user sees, mainly including how
+ * the responses are formated and displayed.
+ */
+
 package ducky.ui;
 
 import ducky.datahandling.Storage;

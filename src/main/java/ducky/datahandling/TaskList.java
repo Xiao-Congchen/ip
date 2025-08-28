@@ -1,3 +1,9 @@
+/**
+ * TaskList handles the task list and all related functions,
+ * including task addition and deletion, updating mark status
+ * as well as methods to get the task list's attributes.
+ */
+
 package ducky.datahandling;
 
 import ducky.task.Deadline;
@@ -20,6 +26,14 @@ public class TaskList {
         this.ui = ui;
     }
 
+    /**
+     * Creates and stores an appropriate Task object locally
+     * based on the type parameter and variables provided.
+     *
+     * @param type The type of task. (Todo/Deadline/Event)
+     * @param vars The attributes of said task.
+     * @return Confirmation or error message.
+     */
     public String addTask(String type, ArrayList<Object> vars) {
         String msg = "";
         switch(type) {
@@ -50,6 +64,10 @@ public class TaskList {
         return msg;
     }
 
+    /**
+     * Returns the current task list in String form.
+     * @return Task list in a String list form.
+     */
     public String list() {
         StringBuilder content = new StringBuilder();
         for (int i = 0; i < memory.size(); i++) {
@@ -60,6 +78,12 @@ public class TaskList {
         return msg;
     }
 
+    /**
+     * Changes the mark state of a Task.
+     * @param taskId Index of the Task to change within the list.
+     * @param markState The mark state to change to.
+     * @return Confirmation string.
+     */
     public String toggleMark(int taskId, Boolean markState) {
         memory.get(taskId - 1).setStat(markState);
         String msg = String.format("Quack! I've marked this task as %s!\n\t%s",
@@ -68,6 +92,11 @@ public class TaskList {
         return msg;
     }
 
+    /**
+     * Deletes a Task.
+     * @param taskId Index of the Task to delete within the list.
+     * @return Confirmation string.
+     */
     public String delete(int taskId) {
         Task temp = memory.get(taskId - 1);
         memory.remove(taskId - 1);
@@ -94,6 +123,10 @@ public class TaskList {
         memory.remove(index);
     }
 
+    /**
+     * Clears the entire task list and updates local task list file.
+     * @return Confirmation string.
+     */
     public String clear() {
         memory.clear();
         String msg = "I've cleared all your tasks!\n\tGood job and keep on quacking!";
@@ -106,5 +139,4 @@ public class TaskList {
         return memory.isEmpty();
 
     }
-
 }

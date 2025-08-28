@@ -45,6 +45,12 @@ public class Ducky {
         }
     }
 
+    /**
+     * A method to run the Ducky program with simulated terminal input.
+     *
+     * @param input Ordinary terminal user input.
+     * @return Content string of Ducky's response, without paddings or indentations.
+     */
     public static String simulator(String input) {
         Ui ui = new Ui();
         Storage storage = new Storage(String.format("data%stasks.txt", File.separator));

@@ -53,8 +53,8 @@ public abstract class Task {
     }
 
     /**
-     * Returns a readable, easy-to-parse format for storage use
-     * @return String representation of task
+     * Formats the task details into a form suited for storing in a local txt file.
+     * @return Formatted task string.
      */
     public abstract String getStoreFormat();
 
