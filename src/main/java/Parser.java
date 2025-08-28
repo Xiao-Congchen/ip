@@ -15,11 +15,11 @@ public class Parser {
             throw new EmptyDescException();
         }
         switch (taskType) {
-        case "T":
+        case "TODO":
             parsed.add(desc);
             break;
 
-        case "D":
+        case "DEADLINE":
             String[] descAndDate = input.split("/by", 2);
             // Either no "/by" or "/by" is empty
             if (descAndDate.length == 1) {
@@ -30,7 +30,7 @@ public class Parser {
             parsed.add(date);
             break;
 
-        case "E":
+        case "EVENT":
             if (!input.contains("/from")) {
                 throw new EmptyDateException("'/from'");
             }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Ducky {
     private static final String DIVLINE = "\t-------------------------------------";
-    private static ArrayList<Task> memory;
+    private static TaskList taskList;
     private static final Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
 
     public enum CommandTypes {
@@ -23,9 +23,9 @@ public class Ducky {
     }
 
     public static void main(String[] args) {
-        memory = storage.read();  // Load in existing tasks, if any
+        taskList = new TaskList(storage.read(), storage);  // Load in existing tasks, if any
         String addOn = "";
-        if (!memory.isEmpty()) {
+        if (!taskList.isEmpty()) {
            addOn = "\n\n\tOoo... I already see some of your tasks on my shelf!\n\tI can bring them to you with \"list\"!";
         }
         speak("Hi I'm Ducky!\n\tHow can I help you?" + addOn);
@@ -71,23 +71,12 @@ public class Ducky {
         ArrayList<Object> vars;
 
         switch(type) {
-        case TODO:
-            vars = Parser.parse("T", rest);
-            addTask(new ToDo((String)vars.get(0), false));
-            break;
-
-        case DEADLINE:
-            vars = Parser.parse("D", rest);
-            addTask(new Deadline((String)vars.get(0), false, (LocalDateTime)vars.get(1)));
-            break;
-
-        case EVENT:
-            vars = Parser.parse("E", rest);
-            addTask(new Event((String)vars.get(0), false, (LocalDateTime)vars.get(1), (LocalDateTime)vars.get(2)));
+        case TODO, DEADLINE, EVENT:
+            taskList.addTask(cmdType, rest);
             break;
 
         case LIST:
-            if (memory.isEmpty()) {
+            if (taskList.isEmpty()) {
                 speak("Pond's all clear - no tasks yet!");
             } else {
                 list();
@@ -104,17 +93,17 @@ public class Ducky {
 
         case DELETE:
             int taskId = validateSelector(rest, "mark");
-            Task temp = memory.get(taskId - 1);
-            memory.remove(taskId - 1);
+            Task temp = taskList.get(taskId - 1);
+            taskList.remove(taskId - 1);
             speak(String.format("Noms! I've gobbled up:\n\t\t%s\n\tNow you have a total of %d tasks!",
-                    temp, memory.size()));
-            storage.save(memory);
+                    temp, taskList.size()));
+            storage.save(taskList.getAll());
             break;
 
         case CLEARALL:
-            memory.clear();
+            taskList.clear();
             speak("I've cleared all your tasks!\n\tGood job and keep on quacking!");
-            storage.save(memory);
+            storage.save(taskList.getAll());
             break;
 
         default:
@@ -130,40 +119,30 @@ public class Ducky {
 
     private static void bye() {
         speak("Bye bye! See you soon!");
-        if (!storage.save(memory)) {
+        if (!storage.save(taskList.getAll())) {
             speak("Your tasks have been lost to the pond... Quack...");
         };
     }
 
     private static void list() {
         StringBuilder content = new StringBuilder();
-        for (int i = 0; i < memory.size(); i++) {
-            content.append(String.format("\t%d. %s\n", i + 1, memory.get(i)));
+        for (int i = 0; i < taskList.size(); i++) {
+            content.append(String.format("\t%d. %s\n", i + 1, taskList.get(i)));
         }
         speak("Here is your Task List! Quackk\n\t" + content.toString().trim());
     }
 
-    private static void addTask(Task newTask) {
-        memory.add(newTask);
-        String addOn = "";
-        if (!storage.save(memory)) {
-           addOn = "\nBut I couldn't send this task to the clouds... Quack...";
-        };
-        speak(String.format("Gotcha! I've added:\n\t\t%s\n\tNow you have a total of %d tasks.%s",
-                memory.get(memory.size()-1), memory.size(), addOn));
-    }
-
     private static void toggleMark(int taskId, Boolean markState) {
-        memory.get(taskId - 1).setStat(markState);
+        taskList.get(taskId - 1).setStat(markState);
         speak(String.format("Quack! I've marked this task as %s!\n\t%s",
-                markState ? "done" : "not done", memory.get(taskId - 1)));
+                markState ? "done" : "not done", taskList.get(taskId - 1)));
     }
 
     private static int validateSelector(String num, String selector) throws DuckyExceptions{
         if (num.isEmpty()) throw new EmptySelectorException(selector);
         try {
             int taskId = Integer.parseInt(num);
-            if (taskId < 1 || taskId > memory.size()) throw new InvalidSelectorException();
+            if (taskId < 1 || taskId > taskList.size()) throw new InvalidSelectorException();
             return taskId;
         } catch (NumberFormatException e) {
             throw new InvalidSelectorException();
