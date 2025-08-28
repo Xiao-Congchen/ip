@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 /**
  * Represents a specific type of Task that has a
  * "/from" variable and "/to" variable to store the start
@@ -5,11 +7,11 @@
  */
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     // Constructor for reading from file on program start
-    public Event(String desc, boolean marked, String from, String to) {
+    public Event(String desc, boolean marked, LocalDateTime from, LocalDateTime to) {
         super(desc);
         this.isDone = marked;
         this.from = from;
@@ -23,6 +25,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (From: %s To: %s)", this.from, this.to);
+        return "[E]" + super.toString() + String.format(" (From: %s To: %s)",
+                friendlyDate(this.from), friendlyDate(this.to));
     }
 }

@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an abstract task with a description and a marked status.
  *
@@ -27,7 +30,7 @@ public abstract class Task {
      * @param variables A string array of task type, marked indicator and any other fields
      * @return Task object
      */
-    public static Task createAppropriateTask(String[] variables) {
+    public static Task createAppropriateTask(String[] variables) throws DuckyExceptions {
         String taskType = variables[0];
         boolean isDone = variables[1].equals("1");
         String desc = variables[2];
@@ -36,9 +39,11 @@ public abstract class Task {
         case "T":
             return new ToDo(desc, isDone);
         case "D":
-            return new Deadline(desc, isDone, variables[3]);
+            return new Deadline(desc, isDone, Parser.parseDate(variables[3], "'/by'"));
         case "E":
-            return new Event(desc, isDone, variables[3], variables[4]);
+            return new Event(desc, isDone,
+                    Parser.parseDate(variables[3], "'/from'"),
+                    Parser.parseDate(variables[4], "'/to'"));
         }
         return null;
     }
@@ -48,6 +53,21 @@ public abstract class Task {
      * @return String representation of task
      */
     public abstract String getStoreFormat();
+
+    public String friendlyDate(LocalDateTime dateTime) {
+        String niceDateTime = dateTime.format(DateTimeFormatter.ofPattern("d'th' 'of' MMMM yyyy, h:mma"));
+        if (niceDateTime.startsWith("1th")) {
+            niceDateTime = niceDateTime.replace("th" ,"st");
+        } else if (niceDateTime.startsWith("2th")) {
+            niceDateTime = niceDateTime.replace("th" ,"nd");
+        } else if (niceDateTime.startsWith("3th")) {
+            niceDateTime = niceDateTime.replace("th" ,"rd");
+        }
+        if (niceDateTime.contains(":00")) {
+            niceDateTime = niceDateTime.replace(":00", "");
+        }
+        return niceDateTime;
+    }
 
    @Override
     public String toString() {

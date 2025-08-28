@@ -1,12 +1,15 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a specific type of Task that has a
  * "/by" variable to store a task completion deadline.
  */
 
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String desc, boolean marked, String by) {
+    public Deadline(String desc, boolean marked, LocalDateTime by) {
         super(desc);
         this.isDone = marked;
         this.by = by;
@@ -19,6 +22,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", this.by);
+        return "[D]" + super.toString() + String.format(" (by: %s)", friendlyDate(this.by));
     }
 }

@@ -9,6 +9,7 @@
  */
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -67,22 +68,22 @@ public class Ducky {
             throw new InvalidCommandException();
         }
 
-        ArrayList<String> vars;
+        ArrayList<Object> vars;
 
         switch(type) {
         case TODO:
             vars = Parser.parse("T", rest);
-            addTask(new ToDo(vars.get(0), false));
+            addTask(new ToDo((String)vars.get(0), false));
             break;
 
         case DEADLINE:
             vars = Parser.parse("D", rest);
-            addTask(new Deadline(vars.get(0), false, vars.get(1)));
+            addTask(new Deadline((String)vars.get(0), false, (LocalDateTime)vars.get(1)));
             break;
 
         case EVENT:
             vars = Parser.parse("E", rest);
-            addTask(new Event(vars.get(0), false, vars.get(1), vars.get(2)));
+            addTask(new Event((String)vars.get(0), false, (LocalDateTime)vars.get(1), (LocalDateTime)vars.get(2)));
             break;
 
         case LIST:
