@@ -50,7 +50,7 @@ public class Parser {
                 return new AddCmd("T", parsed);
             }
 
-        case "DEADLINE": // ducky.task.Deadline
+        case "DEADLINE": // Deadline
             if (isValidDesc("Deadline task", desc)) {
                 String[] descAndDate = input.split("/by", 2);
                 // Either no "/by" or "/by" is empty
