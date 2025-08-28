@@ -5,51 +5,105 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public Parser() {}
 
-    public static ArrayList<Object> parse(String taskType, String input) throws DuckyExceptions {
+    public static Command parse(String input, int listSize) throws DuckyExceptions {
+        if (input.isEmpty()) throw new EmptyCommandException();
+        String[] keywordAndRest = input.split(" ", 2);
+        String cmdType = keywordAndRest[0].toUpperCase();
+        if (keywordAndRest.length == 1 && keywordAndRest[0].equalsIgnoreCase("bye")) {
+            return new ByeCmd();
+        }
+
         ArrayList<Object> parsed = new ArrayList<Object>();
 
-        String desc = input.split("/")[0].trim();
-        if (desc.isEmpty()) {
-            throw new EmptyDescException();
+        String rest;
+        if (keywordAndRest.length == 2) {
+            rest = keywordAndRest[1];
+        } else {
+            rest = "";
         }
-        switch (taskType) {
-        case "TODO":
-            parsed.add(desc);
-            break;
 
-        case "DEADLINE":
-            String[] descAndDate = input.split("/by", 2);
-            // Either no "/by" or "/by" is empty
-            if (descAndDate.length == 1) {
-                throw new EmptyDateException("'/by'");
+        String desc = rest.split("/")[0].trim();
+        switch (cmdType) {
+        case "TODO":
+            if (isValidDesc("Todo task", desc)) {
+                parsed.add(desc);
+                return new AddCmd("T", parsed);
             }
-            LocalDateTime date = parseDate(descAndDate[1].trim(),"'/by'");
-            parsed.add(desc);
-            parsed.add(date);
-            break;
+
+        case "DEADLINE": // Deadline
+            if (isValidDesc("Deadline task", desc)) {
+                String[] descAndDate = input.split("/by", 2);
+                // Either no "/by" or "/by" is empty
+                if (descAndDate.length == 1) {
+                    throw new EmptyDateException("'/by'");
+                }
+                LocalDateTime date = parseDate(descAndDate[1].trim(),"'/by'");
+                parsed.add(desc);
+                parsed.add(date);
+                return new AddCmd("D", parsed);
+            }
 
         case "EVENT":
-            String[] descAndFromTo = input.split("/from", 2);
-            // Either no "/from" or "/from" is empty
-            if (descAndFromTo.length == 1) {
-                throw new EmptyDateException("'/from'");
-            }
-            LocalDateTime from = parseDate(descAndFromTo[1].split("/to")[0].trim(), "'/from");
+            if (isValidDesc("Event", desc)) {
+                String[] descAndFromTo = input.split("/from", 2);
+                // Either no "/from" or "/from" is empty
+                if (descAndFromTo.length == 1) {
+                    throw new EmptyDateException("'/from'");
+                }
+                LocalDateTime from = parseDate(descAndFromTo[1].split("/to")[0].trim(), "'/from'");
 
-            String[] fromAndTo = input.split("/to",2);
-            // Either no "/to" or "/to" is empty
-            if (fromAndTo.length == 1 ) {
-                throw new EmptyDateException("'/to'");
+                String[] fromAndTo = input.split("/to",2);
+                // Either no "/to" or "/to" is empty
+                if (fromAndTo.length == 1 ) {
+                    throw new EmptyDateException("'/to'");
+                }
+                LocalDateTime to = parseDate(fromAndTo[1].trim(), "'/to'");
+                parsed.add(desc);
+                parsed.add(from);
+                parsed.add(to);
+                return new AddCmd("E", parsed);
             }
-            LocalDateTime to = parseDate(fromAndTo[1].trim(), "'/to'");
-            parsed.add(desc);
-            parsed.add(from);
-            parsed.add(to);
-            break;
+
+        case "LIST":
+            return new ListCmd();
+
+        case "MARK":
+            int markId = isValidateSelector(rest, "mark", listSize);
+            return new MarkCmd(markId, true);
+
+        case "UNMARK":
+            int unmarkId = isValidateSelector(rest, "unmark", listSize);
+            return new MarkCmd(unmarkId, false);
+        case "DELETE":
+            int delId = isValidateSelector(rest, "delete", listSize);
+            return new DeleteCmd(delId);
+
+        case "CLEARALL":
+            // Negative taskId signals clear all (negative user input will lead to exception)
+            return new DeleteCmd(-1);
+
+        default:
+            throw new InvalidCommandException();
         }
-        return parsed;
+    }
+
+    private static boolean isValidDesc(String taskType, String desc) throws EmptyDescException {
+        if (desc.isEmpty()) {
+            throw new EmptyDescException(taskType);
+        }
+        return true;
+    }
+
+    private static int isValidateSelector(String num, String selector, int listSize) throws DuckyExceptions {
+        if (num.isEmpty()) throw new EmptySelectorException(selector);
+        try {
+            int taskId = Integer.parseInt(num);
+            if (taskId < 1 || taskId > listSize) throw new InvalidSelectorException();
+            return taskId;
+        } catch (NumberFormatException e) {
+            throw new InvalidSelectorException();
+        }
     }
 
     /**
