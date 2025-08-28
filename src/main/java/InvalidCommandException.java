@@ -4,6 +4,6 @@ public class InvalidCommandException extends DuckyExceptions {
                 Unknown command. My duck brain can’t process that...
                 \t\
                 You can try:
-                \ttodo, deadline, event, list, mark, unmark, delete, bye""");
+                \ttodo, deadline, event, list, mark, unmark, delete, clearall, bye""");
     }
 }
