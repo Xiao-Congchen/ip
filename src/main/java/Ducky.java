@@ -44,4 +44,18 @@ public class Ducky {
             }
         }
     }
+
+    public static String simulator(String input) {
+        Ui ui = new Ui();
+        Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
+        TaskList taskList = new TaskList(storage.read(), storage, ui);
+        try {
+            Command c = Parser.parse(input, taskList.size());
+            return c.execute(ui, storage, taskList);
+        } catch (DuckyExceptions e) {
+            return e.getMessage();
+        }
+
+
+    }
 }
