@@ -29,4 +29,5 @@ list
 delete
 delete 3
 list
+clearall
 bye

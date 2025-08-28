@@ -5,17 +5,17 @@
 	-------------------------------------
 	Unknown command. My duck brain can’t process that...
 	You can try:
-	todo, deadline, event, list, mark, unmark, delete, bye
+	todo, deadline, event, list, mark, unmark, delete, clearall, bye
 	-------------------------------------
 	-------------------------------------
 	Unknown command. My duck brain can’t process that...
 	You can try:
-	todo, deadline, event, list, mark, unmark, delete, bye
+	todo, deadline, event, list, mark, unmark, delete, clearall, bye
 	-------------------------------------
 	-------------------------------------
 	Unknown command. My duck brain can’t process that...
 	You can try:
-	todo, deadline, event, list, mark, unmark, delete, bye
+	todo, deadline, event, list, mark, unmark, delete, clearall, bye
 	-------------------------------------
 	-------------------------------------
 	Quack! You forgot to tell me what the task is about. I can’t swim without water!
@@ -126,6 +126,10 @@
 	Here is your Task List! Quackk
 	1. [T][ ] a
 	2. [D][X] b (by: 14)
+	-------------------------------------
+	-------------------------------------
+	I've cleared all your tasks!
+	Good job and keep on quacking!
 	-------------------------------------
 	-------------------------------------
 	Bye bye! See you soon!
