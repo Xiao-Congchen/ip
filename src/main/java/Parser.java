@@ -31,26 +31,22 @@ public class Parser {
             break;
 
         case "EVENT":
-            if (!input.contains("/from")) {
+            String[] descAndFromTo = input.split("/from", 2);
+            // Either no "/from" or "/from" is empty
+            if (descAndFromTo.length == 1) {
                 throw new EmptyDateException("'/from'");
             }
-            String[] descAndFromTo = input.split("/from", 2);
+            LocalDateTime from = parseDate(descAndFromTo[1].split("/to")[0].trim(), "'/from");
 
-            if (descAndFromTo.length == 1 || descAndFromTo[1].trim().isEmpty()) {
-                throw new InvalidDateException("'/from'");
-            }
-
-            if (!input.contains("/to")) {
+            String[] fromAndTo = input.split("/to",2);
+            // Either no "/to" or "/to" is empty
+            if (fromAndTo.length == 1 ) {
                 throw new EmptyDateException("'/to'");
             }
-            String[] descFromAndTo = input.split("/to",2);
-
-            if (descFromAndTo.length == 1 || descFromAndTo[1].trim().isEmpty()) {
-                throw new InvalidDateException("'/to'");
-            }
+            LocalDateTime to = parseDate(fromAndTo[1].trim(), "'/to'");
             parsed.add(desc);
-            parsed.add(descAndFromTo[1].split("/")[0].trim());
-            parsed.add(descFromAndTo[1].trim());
+            parsed.add(from);
+            parsed.add(to);
             break;
         }
         return parsed;

@@ -7,12 +7,14 @@ deadline
 deadline b
 deadline b /by
 deadline b /by 14
+deadline b /by 14/2/2025 1600
 event
 event c
 event c /from
 event c /from 12
-event c /from 12 /to
-event c /from 12 /to 15
+event c /from 12/12/2020 0630
+event c /from 12/12/2020 0630 /to
+event c /from 12/12/2020 0630 /to 12/12/2020 1830
 list
 mark
 mark 1

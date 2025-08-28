@@ -32,11 +32,18 @@
 	No '/by'? Welp guess I’ll just float around until you tell me :/
 	-------------------------------------
 	-------------------------------------
-	That's an invalid '/by' date/time! Quack twice and try again~
+	That's an invalid '/by' date/time!
+	Please follow the format "dd/mm/yyyy hhmm"!
+	Quack twice and try again~
+	-------------------------------------
+	-------------------------------------
+	That's an invalid '/by' date/time!
+	Please follow the format "dd/mm/yyyy hhmm"!
+	Quack twice and try again~
 	-------------------------------------
 	-------------------------------------
 	Gotcha! I've added:
-		[D][ ] b (by: 14)
+		[D][ ] b (by: 14th of February 2025, 4pm)
 	Now you have a total of 2 tasks.
 	-------------------------------------
 	-------------------------------------
@@ -46,24 +53,33 @@
 	No '/from'? Welp guess I’ll just float around until you tell me :/
 	-------------------------------------
 	-------------------------------------
-	That's an invalid '/from' date/time! Quack twice and try again~
+	That's an invalid '/from date/time!
+	Please follow the format "dd/mm/yyyy hhmm"!
+	Quack twice and try again~
+	-------------------------------------
+	-------------------------------------
+	That's an invalid '/from date/time!
+	Please follow the format "dd/mm/yyyy hhmm"!
+	Quack twice and try again~
 	-------------------------------------
 	-------------------------------------
 	No '/to'? Welp guess I’ll just float around until you tell me :/
 	-------------------------------------
 	-------------------------------------
-	That's an invalid '/to' date/time! Quack twice and try again~
+	That's an invalid '/to' date/time!
+	Please follow the format "dd/mm/yyyy hhmm"!
+	Quack twice and try again~
 	-------------------------------------
 	-------------------------------------
 	Gotcha! I've added:
-		[E][ ] c (From: 12 To: 15)
+		[E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	Now you have a total of 3 tasks.
 	-------------------------------------
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][ ] a
-	2. [D][ ] b (by: 14)
-	3. [E][ ] c (From: 12 To: 15)
+	2. [D][ ] b (by: 14th of February 2025, 4pm)
+	3. [E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	-------------------------------------
 	-------------------------------------
 	Quackkk~ Please choose a task to mark!
@@ -75,8 +91,8 @@
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][X] a
-	2. [D][ ] b (by: 14)
-	3. [E][ ] c (From: 12 To: 15)
+	2. [D][ ] b (by: 14th of February 2025, 4pm)
+	3. [E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	-------------------------------------
 	-------------------------------------
 	Hmm, I can’t find that task. Did you drop it in the pond?
@@ -86,7 +102,7 @@
 	-------------------------------------
 	-------------------------------------
 	Quack! I've marked this task as done!
-	[D][X] b (by: 14)
+	[D][X] b (by: 14th of February 2025, 4pm)
 	-------------------------------------
 	-------------------------------------
 	Quackkk~ Please choose a task to unmark!
@@ -98,8 +114,8 @@
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][ ] a
-	2. [D][X] b (by: 14)
-	3. [E][ ] c (From: 12 To: 15)
+	2. [D][X] b (by: 14th of February 2025, 4pm)
+	3. [E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	-------------------------------------
 	-------------------------------------
 	Hmm, I can’t find that task. Did you drop it in the pond?
@@ -111,21 +127,21 @@
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][ ] a
-	2. [D][X] b (by: 14)
-	3. [E][ ] c (From: 12 To: 15)
+	2. [D][X] b (by: 14th of February 2025, 4pm)
+	3. [E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	-------------------------------------
 	-------------------------------------
 	Quackkk~ Please choose a task to mark!
 	-------------------------------------
 	-------------------------------------
 	Noms! I've gobbled up:
-		[E][ ] c (From: 12 To: 15)
+		[E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	Now you have a total of 2 tasks!
 	-------------------------------------
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][ ] a
-	2. [D][X] b (by: 14)
+	2. [D][X] b (by: 14th of February 2025, 4pm)
 	-------------------------------------
 	-------------------------------------
 	I've cleared all your tasks!
