@@ -18,7 +18,7 @@ public class Ducky {
     private static final Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
 
     public enum CommandTypes {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, CLEARALL
     }
 
     public static void main(String[] args) {
@@ -103,6 +103,13 @@ public class Ducky {
             memory.remove(taskId - 1);
             speak(String.format("Noms! I've gobbled up:\n\t\t%s\n\tNow you have a total of %d tasks!",
                     temp, memory.size()));
+            storage.save(memory);
+            break;
+
+        case CLEARALL:
+            memory.clear();
+            speak("I've cleared all your tasks!\n\tGood job and keep on quacking!");
+            storage.save(memory);
             break;
 
         default:
