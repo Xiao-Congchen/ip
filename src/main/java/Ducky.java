@@ -9,143 +9,32 @@
  */
 
 import java.io.File;
-import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Ducky {
-    private static final String DIVLINE = "\t-------------------------------------";
-    private static TaskList taskList;
-    private static final Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
-
-    public enum CommandTypes {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, CLEARALL
-    }
-
     public static void main(String[] args) {
-        taskList = new TaskList(storage.read(), storage);  // Load in existing tasks, if any
+        Ui ui = new Ui();
+        Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
+        TaskList taskList = new TaskList(storage.read(), storage, ui);  // Load in existing tasks, if any
+
         String addOn = "";
         if (!taskList.isEmpty()) {
-           addOn = "\n\n\tOoo... I already see some of your tasks on my shelf!\n\tI can bring them to you with \"list\"!";
+            addOn = "\n\n\tOoo... I already see some of your tasks on my shelf!" +
+                    "\n\tI can bring them to you with \"list\"!";
         }
-        speak("Hi I'm Ducky!\n\tHow can I help you?" + addOn);
-        start();
-    }
+        ui.hello(addOn);
 
-    private static void start() {
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean isBye = false;
+        while (!isBye) {
             try {
                 String command = scanner.nextLine().trim();
-                if (command.isEmpty()) throw new EmptyCommandException();
-                String[] keywordAndRest = command.split(" ", 2);
-
-                if (keywordAndRest.length == 1 && keywordAndRest[0].equalsIgnoreCase("bye")) {
-                    bye();
-                    break;
-                } else {
-                    executeCommand(keywordAndRest);
-                }
+                Command c = Parser.parse(command, taskList.size());
+                c.execute(ui, storage, taskList);
+                isBye = c.isBye();
             } catch (DuckyExceptions e) {
-                speak(e.getMessage());
+                ui.speak(e.getMessage());
             }
-        }
-    }
-
-    private static void executeCommand(String[] keywordAndRest) throws DuckyExceptions {
-        String cmdType = keywordAndRest[0].toUpperCase();
-        String rest;
-        if (keywordAndRest.length == 2) {
-            rest = keywordAndRest[1];
-        } else {
-            rest = "";
-        }
-
-        CommandTypes type;
-        try {
-            type = CommandTypes.valueOf(cmdType);
-        } catch (IllegalArgumentException e) {
-            throw new InvalidCommandException();
-        }
-
-        ArrayList<Object> vars;
-
-        switch(type) {
-        case TODO, DEADLINE, EVENT:
-            taskList.addTask(cmdType, rest);
-            break;
-
-        case LIST:
-            if (taskList.isEmpty()) {
-                speak("Pond's all clear - no tasks yet!");
-            } else {
-                list();
-            }
-            break;
-
-        case MARK:
-            toggleMark(validateSelector(rest, "mark"), true);
-            break;
-
-        case UNMARK:
-            toggleMark(validateSelector(rest, "unmark"), false);
-            break;
-
-        case DELETE:
-            int taskId = validateSelector(rest, "mark");
-            Task temp = taskList.get(taskId - 1);
-            taskList.remove(taskId - 1);
-            speak(String.format("Noms! I've gobbled up:\n\t\t%s\n\tNow you have a total of %d tasks!",
-                    temp, taskList.size()));
-            storage.save(taskList.getAll());
-            break;
-
-        case CLEARALL:
-            taskList.clear();
-            speak("I've cleared all your tasks!\n\tGood job and keep on quacking!");
-            storage.save(taskList.getAll());
-            break;
-
-        default:
-            throw new InvalidCommandException();
-        }
-    }
-
-    private static void speak(String msg) {
-        System.out.println(DIVLINE);
-        System.out.println("\t" + msg);
-        System.out.println(DIVLINE);
-    }
-
-    private static void bye() {
-        speak("Bye bye! See you soon!");
-        if (!storage.save(taskList.getAll())) {
-            speak("Your tasks have been lost to the pond... Quack...");
-        };
-    }
-
-    private static void list() {
-        StringBuilder content = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            content.append(String.format("\t%d. %s\n", i + 1, taskList.get(i)));
-        }
-        speak("Here is your Task List! Quackk\n\t" + content.toString().trim());
-    }
-
-    private static void toggleMark(int taskId, Boolean markState) {
-        taskList.get(taskId - 1).setStat(markState);
-        speak(String.format("Quack! I've marked this task as %s!\n\t%s",
-                markState ? "done" : "not done", taskList.get(taskId - 1)));
-    }
-
-    private static int validateSelector(String num, String selector) throws DuckyExceptions{
-        if (num.isEmpty()) throw new EmptySelectorException(selector);
-        try {
-            int taskId = Integer.parseInt(num);
-            if (taskId < 1 || taskId > taskList.size()) throw new InvalidSelectorException();
-            return taskId;
-        } catch (NumberFormatException e) {
-            throw new InvalidSelectorException();
         }
     }
 }
