@@ -22,6 +22,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", StringifyDate.friendlyDate(this.by));
+        return "[D]" + super.toString() + String.format(" (By: %s)", StringifyDate.friendlyDate(this.by));
     }
 }
