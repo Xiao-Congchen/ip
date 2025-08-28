@@ -32,8 +32,8 @@ public class Parser {
             if (!input.contains("/from")) {
                 throw new EmptyDateException("'/from'");
             }
-
             String[] descAndFromTo = input.split("/from", 2);
+
             if (descAndFromTo.length == 1 || descAndFromTo[1].trim().isEmpty()) {
                 throw new InvalidDateException("'/from'");
             }
@@ -42,6 +42,7 @@ public class Parser {
                 throw new EmptyDateException("'/to'");
             }
             String[] descFromAndTo = input.split("/to",2);
+
             if (descFromAndTo.length == 1 || descFromAndTo[1].trim().isEmpty()) {
                 throw new InvalidDateException("'/to'");
             }
