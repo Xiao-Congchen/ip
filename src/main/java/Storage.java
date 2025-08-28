@@ -49,6 +49,8 @@ public class Storage {
             scanner.close();
         } catch (FileNotFoundException ignored) {
             // If the file does not exist, it will be created after one iteration
+        } catch (DuckyExceptions d) {
+            System.out.println("Error with reading stored tasks: " + d.getMessage());
         }
         return tasks;
     }
