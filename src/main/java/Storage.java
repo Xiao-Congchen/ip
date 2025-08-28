@@ -1,3 +1,10 @@
+/**
+ * Represents a container for the stored data.
+ *
+ * It provides saving and reading functionalities to a
+ * file specified by a path in the instance.
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -17,13 +24,15 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(String.valueOf(path));
             for (Task task : tasks) {
+                // Each task will be separated by a newline char
                 writer.write(task.getStoreFormat() + System.lineSeparator());
             }
             writer.close();
         } catch (IOException e) {
+            // Failed save from path error
             System.out.println(e);
             System.out.println("Path error");
-            return false;  // Path error
+            return false;
         }
         return true;
     }
@@ -39,7 +48,7 @@ public class Storage {
             }
             scanner.close();
         } catch (FileNotFoundException ignored) {
-            /* If the file does not exist, it will be created after one iteration */
+            // If the file does not exist, it will be created after one iteration
         }
         return tasks;
     }
