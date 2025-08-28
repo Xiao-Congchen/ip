@@ -1,9 +1,12 @@
-/**
+package ducky.datahandling; /**
  * Represents a container for the stored data.
  *
  * It provides saving and reading functionalities to a
  * file specified by a path in the instance.
  */
+
+import ducky.exception.DuckyExceptions;
+import ducky.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;

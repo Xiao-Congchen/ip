@@ -1,3 +1,11 @@
+package ducky.datahandling;
+
+import ducky.task.Deadline;
+import ducky.task.Event;
+import ducky.task.Task;
+import ducky.task.ToDo;
+import ducky.ui.Ui;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -38,21 +46,21 @@ public class TaskList {
         storage.save(memory);
     }
 
-    protected void list() {
+    public void list() {
         StringBuilder content = new StringBuilder();
         for (int i = 0; i < memory.size(); i++) {
             content.append(String.format("\t%d. %s\n", i + 1, memory.get(i)));
         }
-        ui.speak("Here is your Task List! Quackk\n\t" + content.toString().trim());
+        ui.speak("Here is your ducky.task.Task List! Quackk\n\t" + content.toString().trim());
     }
 
-    protected void toggleMark(int taskId, Boolean markState) {
+    public void toggleMark(int taskId, Boolean markState) {
         memory.get(taskId - 1).setStat(markState);
         ui.speak(String.format("Quack! I've marked this task as %s!\n\t%s",
                 markState ? "done" : "not done", memory.get(taskId - 1)));
     }
 
-    protected void delete(int taskId) {
+    public void delete(int taskId) {
         Task temp = memory.get(taskId - 1);
         memory.remove(taskId - 1);
         ui.speak(String.format("Noms! I've gobbled up:\n\t\t%s\n\tNow you have a total of %d tasks!",

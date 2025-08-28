@@ -1,3 +1,5 @@
+package ducky.exception;
+
 public class InvalidDateException extends InvalidException {
     public InvalidDateException(String fieldName) {
         super("That's an invalid " + fieldName + " date/time!\n\t"

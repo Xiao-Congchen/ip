@@ -1,3 +1,5 @@
+package ducky.exception;
+
 public class InvalidCommandException extends DuckyExceptions {
     public InvalidCommandException() {
         super("""

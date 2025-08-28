@@ -3,6 +3,7 @@
  *
  * Helps to convert a LocalDateTime object into a human-friendly date representation
  */
+package ducky.stringprocessing;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

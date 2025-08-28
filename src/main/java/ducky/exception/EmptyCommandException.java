@@ -1,3 +1,5 @@
+package ducky.exception;
+
 public class EmptyCommandException extends EmptyException {
     public EmptyCommandException() {
         super("""

@@ -1,6 +1,8 @@
 /**
- * Represents the most basic type of Task with no additional functionality
+ * Represents the most basic type of ducky.task.Task with no additional functionality
  */
+
+package ducky.task;
 
 public class ToDo extends Task {
     public ToDo(String desc, boolean state) {

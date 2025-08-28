@@ -1,10 +1,17 @@
 /**
  * Represents an abstract task with a description and a marked status.
  *
- * It serves as the base for different types of tasks, such as ToDo, Deadline, and Event.
+ * It serves as the base for different types of tasks, such as ducky.task.ToDo, ducky.task.Deadline, and ducky.task.Event.
  * It provides common fields and methods for handling task state,
  * as well as a factory method to reconstruct tasks from stored data.
  */
+
+package ducky.task;
+
+import ducky.stringprocessing.Parser;
+
+import ducky.exception.DuckyExceptions;
+
 public abstract class Task {
     protected String desc;
     protected boolean isDone;
@@ -23,9 +30,9 @@ public abstract class Task {
     }
 
     /**
-     * Returns an appropriate Task object using input from the stored file
+     * Returns an appropriate ducky.task.Task object using input from the stored file
      * @param variables A string array of task type, marked indicator and any other fields
-     * @return Task object
+     * @return ducky.task.Task object
      */
     public static Task createAppropriateTask(String[] variables) throws DuckyExceptions {
         String taskType = variables[0];

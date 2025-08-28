@@ -1,3 +1,10 @@
+package ducky.command;
+
+import ducky.ui.Ui;
+
+import ducky.datahandling.Storage;
+import ducky.datahandling.TaskList;
+
 import java.util.ArrayList;
 
 public class AddCmd extends Command {

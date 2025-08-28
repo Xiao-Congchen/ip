@@ -1,7 +1,12 @@
 /**
- * Represents a specific type of Task that has a
+ * Represents a specific type of ducky.task.Task that has a
  * "/by" variable to store a task completion deadline.
  */
+
+package ducky.task;
+
+import ducky.stringprocessing.StringifyDate;
+
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {

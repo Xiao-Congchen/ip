@@ -1,3 +1,22 @@
+package ducky.stringprocessing;
+
+import ducky.command.Command;
+import ducky.command.AddCmd;
+import ducky.command.ByeCmd;
+import ducky.command.ListCmd;
+import ducky.command.MarkCmd;
+import ducky.command.DeleteCmd;
+
+import ducky.exception.DuckyExceptions;
+import ducky.exception.EmptyCommandException;
+import ducky.exception.EmptyDateException;
+import ducky.exception.InvalidCommandException;
+import ducky.exception.EmptyDescException;
+import ducky.exception.EmptySelectorException;
+import ducky.exception.InvalidSelectorException;
+import ducky.exception.InvalidDateException;
+
+
 import java.util.ArrayList;
 
 import java.time.LocalDateTime;
@@ -31,7 +50,7 @@ public class Parser {
                 return new AddCmd("T", parsed);
             }
 
-        case "DEADLINE": // Deadline
+        case "DEADLINE": // ducky.task.Deadline
             if (isValidDesc("Deadline task", desc)) {
                 String[] descAndDate = input.split("/by", 2);
                 // Either no "/by" or "/by" is empty
