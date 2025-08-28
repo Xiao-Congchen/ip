@@ -1,7 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
-
 import java.io.IOException;
+
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Storage {
     private final String path;
@@ -10,17 +13,34 @@ public class Storage {
         this.path = path;
     }
 
-    public int save(ArrayList<Task> tasks) {
+    public boolean save(ArrayList<Task> tasks) {
         try {
-            FileWriter writer = new FileWriter(path);
+            FileWriter writer = new FileWriter(String.valueOf(path));
             for (Task task : tasks) {
-                writer.write(task.getStoreFormat());
+                writer.write(task.getStoreFormat() + System.lineSeparator());
             }
             writer.close();
         } catch (IOException e) {
+            System.out.println(e);
             System.out.println("Path error");
-            return 1;  // Path error
+            return false;  // Path error
         }
-        return 0;
+        return true;
+    }
+
+    public ArrayList<Task> read() {
+        ArrayList<Task> tasks = new ArrayList<Task>();
+        try {
+            Scanner scanner = new Scanner(new File(path));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] variables = line.split(" \\| ");
+                tasks.add(Task.createAppropriateTask(variables));
+            }
+            scanner.close();
+        } catch (FileNotFoundException ignored) {
+            /* If the file does not exist, it will be created after one iteration */
+        }
+        return tasks;
     }
 }
