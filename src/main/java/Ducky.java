@@ -22,12 +22,16 @@ public class Ducky {
     }
 
     public static void main(String[] args) {
-        speak("Hi I'm Ducky!\n\tHow can I help you?");
+        memory = storage.read();  // Load in existing tasks, if any
+        String addOn = "";
+        if (!memory.isEmpty()) {
+           addOn = "\n\n\tOoo... I already see some of your tasks on my shelf!\n\tI can bring them to you with \"list\"!";
+        }
+        speak("Hi I'm Ducky!\n\tHow can I help you?" + addOn);
         start();
     }
 
     private static void start() {
-        memory = storage.read();  // Load in existing tasks, if any
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
