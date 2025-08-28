@@ -1,3 +1,9 @@
+/**
+ * Represents a specific type of Task that has a
+ * "/from" variable and "/to" variable to store the start
+ * and end times of an event.
+ */
+
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -10,10 +16,6 @@ public class Event extends Task {
         this.to = to;
     }
 
-    /**
-     * Returns a readable, easy-to-parse format for storage use
-     * @return String representation of event
-     */
     public String getStoreFormat() {
         // 1 means done(marked), 0 means not done(unmarked)
         return String.format("T | %d | %s | %s | %s", isDone ? 1 : 0, desc, from, to);
