@@ -9,16 +9,16 @@ import ducky.datahandling.Storage;
 import ducky.datahandling.TaskList;
 
 public class Ui {
-    private static final String DIVLINE = "\t-------------------------------------";
+    private static final String DIV_LINE = "\t-------------------------------------";
 
     public void hello(String addOn) {
         speak("Hi I'm Ducky!\n\tHow can I help you?" + addOn);
     }
 
     public void speak(String msg) {
-        System.out.println(DIVLINE);
+        System.out.println(DIV_LINE);
         System.out.println("\t" + msg);
-        System.out.println(DIVLINE);
+        System.out.println(DIV_LINE);
     }
 
     public String bye(Storage storage, TaskList taskList) {
