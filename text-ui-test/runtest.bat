@@ -10,7 +10,7 @@ REM delete output from previous run
 if exist text-ui-test\ACTUAL.TXT del text-ui-test\ACTUAL.TXT
 
 REM compile the code into the bin folder
-javac  -cp src\main\java -Xlint:none -d bin src\main\java\*.java
+javac -cp src\main\java -Xlint:none -d bin src\main\java\ducky\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1
