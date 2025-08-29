@@ -8,6 +8,8 @@
  * Tasks are stored as specific types, namely ToDo, Deadline, and Event.
  */
 
+package ducky;
+
 import ducky.command.Command;
 import ducky.datahandling.TaskList;
 import ducky.exception.DuckyExceptions;
