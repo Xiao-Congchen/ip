@@ -68,12 +68,18 @@ public class TaskList {
      * Returns the current task list in String form.
      * @return Task list in a String list form.
      */
-    public String list() {
+    public String list(String custom) {
         StringBuilder content = new StringBuilder();
         for (int i = 0; i < memory.size(); i++) {
             content.append(String.format("\t%d. %s\n", i + 1, memory.get(i)));
         }
-        String msg = "Here is your Task List! Quackk\n\t" + content.toString().trim();
+        String msg = "";
+        if (content.isEmpty()) {
+            msg = "I do not see any tasks on my shelf.\n\tTry adding some!";
+        } else {
+            String basic = "Here is your Task List! Quackk\n\t";
+            msg = (custom.isBlank() ? basic : custom) + content.toString().trim();
+        }
         ui.speak(msg);
         return msg;
     }

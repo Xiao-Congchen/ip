@@ -29,6 +29,10 @@ public abstract class Task {
         this.isDone = status;
     }
 
+    public String getDesc() {
+        return this.desc;
+    }
+
     /**
      * Returns an appropriate ducky.task.Task object using input from the stored file
      * @param variables A string array of task type, marked indicator and any other fields
