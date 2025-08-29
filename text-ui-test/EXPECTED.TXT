@@ -43,7 +43,7 @@
 	-------------------------------------
 	-------------------------------------
 	Gotcha! I've added:
-		[D][ ] b (By: 14th of February 2025, 4pm)
+		[D][ ] ab (By: 14th of February 2025, 4pm)
 	Now you have a total of 2 tasks.
 	-------------------------------------
 	-------------------------------------
@@ -72,14 +72,14 @@
 	-------------------------------------
 	-------------------------------------
 	Gotcha! I've added:
-		[E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
+		[E][ ] abc (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	Now you have a total of 3 tasks.
 	-------------------------------------
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][ ] a
-	2. [D][ ] b (By: 14th of February 2025, 4pm)
-	3. [E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
+	2. [D][ ] ab (By: 14th of February 2025, 4pm)
+	3. [E][ ] abc (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	-------------------------------------
 	-------------------------------------
 	Quackkk~ Please choose a task to mark!
@@ -91,8 +91,8 @@
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][X] a
-	2. [D][ ] b (By: 14th of February 2025, 4pm)
-	3. [E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
+	2. [D][ ] ab (By: 14th of February 2025, 4pm)
+	3. [E][ ] abc (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	-------------------------------------
 	-------------------------------------
 	Hmm, I can’t find that task. Did you drop it in the pond?
@@ -102,7 +102,7 @@
 	-------------------------------------
 	-------------------------------------
 	Quack! I've marked this task as done!
-	[D][X] b (By: 14th of February 2025, 4pm)
+	[D][X] ab (By: 14th of February 2025, 4pm)
 	-------------------------------------
 	-------------------------------------
 	Quackkk~ Please choose a task to unmark!
@@ -114,8 +114,8 @@
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][ ] a
-	2. [D][X] b (By: 14th of February 2025, 4pm)
-	3. [E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
+	2. [D][X] ab (By: 14th of February 2025, 4pm)
+	3. [E][ ] abc (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	-------------------------------------
 	-------------------------------------
 	Hmm, I can’t find that task. Did you drop it in the pond?
@@ -127,21 +127,46 @@
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][ ] a
-	2. [D][X] b (By: 14th of February 2025, 4pm)
-	3. [E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
+	2. [D][X] ab (By: 14th of February 2025, 4pm)
+	3. [E][ ] abc (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	-------------------------------------
 	-------------------------------------
 	Quackkk~ Please choose a task to delete!
 	-------------------------------------
 	-------------------------------------
 	Noms! I've gobbled up:
-		[E][ ] c (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
+		[E][ ] abc (From: 12th of December 2020, 6:30am To: 12th of December 2020, 6:30pm)
 	Now you have a total of 2 tasks!
 	-------------------------------------
 	-------------------------------------
 	Here is your Task List! Quackk
 	1. [T][ ] a
-	2. [D][X] b (By: 14th of February 2025, 4pm)
+	2. [D][X] ab (By: 14th of February 2025, 4pm)
+	-------------------------------------
+	-------------------------------------
+	Quack! You are in luck!
+	I found some matching tasks
+	1. [T][ ] a
+	2. [D][X] ab (By: 14th of February 2025, 4pm)
+	-------------------------------------
+	-------------------------------------
+	Quack! You are in luck!
+	I found some matching tasks
+	1. [T][ ] a
+	2. [D][X] ab (By: 14th of February 2025, 4pm)
+	-------------------------------------
+	-------------------------------------
+	Quack! You are in luck!
+	I found some matching tasks
+	1. [D][X] ab (By: 14th of February 2025, 4pm)
+	-------------------------------------
+	-------------------------------------
+	I do not see any matching tasks floating around.
+	Try another keyword!
+	-------------------------------------
+	-------------------------------------
+	I do not see any matching tasks floating around.
+	Try another keyword!
 	-------------------------------------
 	-------------------------------------
 	I've cleared all your tasks!
