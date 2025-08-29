@@ -3,6 +3,7 @@ package ducky.stringprocessing;
 import ducky.command.Command;
 import ducky.command.AddCmd;
 import ducky.command.ByeCmd;
+import ducky.command.FindCmd;
 import ducky.command.ListCmd;
 import ducky.command.MarkCmd;
 import ducky.command.DeleteCmd;
@@ -84,6 +85,9 @@ public class Parser {
                 return new AddCmd("E", parsed);
             }
 
+        case "FIND":
+            return new FindCmd(desc);
+
         case "LIST":
             return new ListCmd();
 
@@ -94,6 +98,7 @@ public class Parser {
         case "UNMARK":
             int unmarkId = isValidateSelector(rest, "unmark", listSize);
             return new MarkCmd(unmarkId, false);
+
         case "DELETE":
             int delId = isValidateSelector(rest, "delete", listSize);
             return new DeleteCmd(delId);
