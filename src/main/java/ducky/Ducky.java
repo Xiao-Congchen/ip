@@ -1,13 +1,3 @@
-/**
- * The Ducky chatbot is a task tracker that helps
- * users manage their tasks through text commands.
- *
- * It supports commands for adding, listing, marking, unmarking,
- * and deleting tasks, as well as saving and loading tasks from storage
- * between sessions.
- * Tasks are stored as specific types, namely ToDo, Deadline, and Event.
- */
-
 package ducky;
 
 import ducky.command.Command;
@@ -20,6 +10,15 @@ import ducky.ui.Ui;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * The Ducky chatbot is a task tracker that helps
+ * users manage their tasks through text commands.
+ *
+ * It supports commands for adding, listing, marking, unmarking,
+ * and deleting tasks, as well as saving and loading tasks from storage
+ * between sessions.
+ * Tasks are stored as specific types, namely ToDo, Deadline, and Event.
+ */
 public class Ducky {
     public static void main(String[] args) {
         Ui ui = new Ui();

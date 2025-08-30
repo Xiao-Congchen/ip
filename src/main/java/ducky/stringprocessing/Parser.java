@@ -1,9 +1,3 @@
-/**
- * The Parser helps to process evey user input into an appropriate Command.
- * Possible command types include: Add, Bye, List, Mark, Delete.
- * It will also throw the relevant exceptions faced while parsing.
- */
-
 package ducky.stringprocessing;
 
 import ducky.command.Command;
@@ -29,6 +23,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser helps to process evey user input into an appropriate Command.
+ * Possible command types include: Add, Bye, List, Mark, Delete.
+ * It will also throw the relevant exceptions faced while parsing.
+ */
 public class Parser {
     /**
      * Returns a specific Command object based on input.

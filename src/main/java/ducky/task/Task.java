@@ -1,3 +1,8 @@
+package ducky.task;
+
+import ducky.stringprocessing.Parser;
+import ducky.exception.DuckyExceptions;
+
 /**
  * Represents an abstract task with a description and a marked status.
  *
@@ -5,13 +10,6 @@
  * It provides common fields and methods for handling task state,
  * as well as a factory method to reconstruct tasks from stored data.
  */
-
-package ducky.task;
-
-import ducky.stringprocessing.Parser;
-
-import ducky.exception.DuckyExceptions;
-
 public abstract class Task {
     protected String desc;
     protected boolean isDone;

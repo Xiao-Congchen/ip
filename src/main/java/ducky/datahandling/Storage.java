@@ -1,9 +1,4 @@
-package ducky.datahandling; /**
- * Represents a container for the stored data.
- *
- * It provides saving and reading functionalities to a
- * file specified by a path in the instance.
- */
+package ducky.datahandling;
 
 import ducky.exception.DuckyExceptions;
 import ducky.task.Task;
@@ -16,6 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a container for the stored data.
+ *
+ * It provides saving and reading functionalities to a
+ * file specified by a path in the instance.
+ */
 public class Storage {
     private final String path;
 

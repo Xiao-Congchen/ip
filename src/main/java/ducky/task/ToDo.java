@@ -1,9 +1,8 @@
+package ducky.task;
+
 /**
  * Represents the most basic type of ducky.task.Task with no additional functionality
  */
-
-package ducky.task;
-
 public class ToDo extends Task {
     public ToDo(String desc, boolean state) {
         super(desc);

@@ -1,15 +1,13 @@
+package ducky.task;
+
+import ducky.stringprocessing.StringifyDate;
+import java.time.LocalDateTime;
+
 /**
  * Represents a specific type of ducky.task.Task that has a
  * "/from" variable and "/to" variable to store the start
  * and end times of an event.
  */
-
-package ducky.task;
-
-import ducky.stringprocessing.StringifyDate;
-
-import java.time.LocalDateTime;
-
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;

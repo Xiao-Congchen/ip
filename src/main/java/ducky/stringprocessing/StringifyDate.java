@@ -1,13 +1,13 @@
-/**
- * A class to format date outputs
- *
- * Helps to convert a LocalDateTime object into a human-friendly date representation
- */
 package ducky.stringprocessing;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A class to format date outputs
+ *
+ * Helps to convert a LocalDateTime object into a human-friendly date representation
+ */
 public class StringifyDate {
     public static String friendlyDate(LocalDateTime dateTime) {
         String niceDateTime = dateTime.format(DateTimeFormatter.ofPattern("d'th' 'of' MMMM yyyy, h:mma"));

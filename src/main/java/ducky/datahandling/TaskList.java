@@ -1,9 +1,3 @@
-/**
- * TaskList handles the task list and all related functions,
- * including task addition and deletion, updating mark status
- * as well as methods to get the task list's attributes.
- */
-
 package ducky.datahandling;
 
 import ducky.task.Deadline;
@@ -15,6 +9,11 @@ import ducky.ui.Ui;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * TaskList handles the task list and all related functions,
+ * including task addition and deletion, updating mark status
+ * as well as methods to get the task list's attributes.
+ */
 public class TaskList {
     private final ArrayList<Task> memory;
     private final Storage storage;

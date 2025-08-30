@@ -1,13 +1,12 @@
-/**
- * Ui handles all the elements the user sees, mainly including how
- * the responses are formated and displayed.
- */
-
 package ducky.ui;
 
 import ducky.datahandling.Storage;
 import ducky.datahandling.TaskList;
 
+/**
+ * Ui handles all the elements the user sees, mainly including how
+ * the responses are formated and displayed.
+ */
 public class Ui {
     private static final String DIV_LINE = "\t-------------------------------------";
 
