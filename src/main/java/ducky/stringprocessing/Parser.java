@@ -145,7 +145,7 @@ public class Parser {
     /**
      * Returns a standardised ISO date to be used with the DateTime object.
      * @param date A string-form date
-     * @return An ISO8601-format date
+     * @return An ISO 8601-format date
      */
     public static LocalDateTime parseDate(String date, String fieldName) throws InvalidDateException {
         String[] dateAndTime = date.split(" ");
