@@ -30,10 +30,6 @@ public class MainGui extends Application {
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
-        // Dialog Container
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
-
         // Other components in the Anchorpane
         userInput = new TextField();
         sendButton = new Button("Send");
@@ -73,6 +69,21 @@ public class MainGui extends Application {
 
         stage.show();
 
-        // More code to be added here later
+        // Handling user input
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    /**
+     * Creates a dialog box containing user input, and appends it to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        userInput.clear();
     }
 }
