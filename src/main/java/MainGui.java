@@ -90,8 +90,8 @@ public class MainGui extends Application {
         String userInputText = userInput.getText();
         String duckyReply = ducky.getResponse(userInputText);
         dialogContainer.getChildren().addAll(
-                new DialogBox(userInputText, userImage),
-                new DialogBox(duckyReply, duckyImage)
+                DialogBox.getUserDialog(userInputText, userImage),
+                DialogBox.getDuckyDialog(duckyReply, duckyImage)
         );
         userInput.clear();
     }
