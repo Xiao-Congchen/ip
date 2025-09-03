@@ -52,7 +52,7 @@ public class Ducky {
      * @param input Ordinary terminal user input.
      * @return Content string of Ducky's response, without paddings or indentations.
      */
-    public static String simulator(String input) {
+    public String simulator(String input) {
         Ui ui = new Ui();
         Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
         TaskList taskList = new TaskList(storage.read(), storage, ui);
