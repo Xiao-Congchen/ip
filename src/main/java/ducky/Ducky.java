@@ -63,4 +63,11 @@ public class Ducky {
             return e.getMessage();
         }
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Ducky heard: " + input;
+    }
 }

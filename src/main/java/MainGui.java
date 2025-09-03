@@ -1,3 +1,4 @@
+import ducky.Ducky;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +20,7 @@ public class MainGui extends Application {
             .getResourceAsStream("/images/Gemini_Generated_Image_Pixel_Rubber_Duck.png"));
     private Image userImage = new Image(this.getClass()
             .getResourceAsStream("/images/Gemini_Generated_Image_Pixel_Human.png"));
+    private Ducky ducky = new Ducky();
 
 
     @Override
@@ -85,7 +87,12 @@ public class MainGui extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userInputText = userInput.getText();
+        String duckyReply = ducky.getResponse(userInputText);
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userInputText, userImage),
+                new DialogBox(duckyReply, duckyImage)
+        );
         userInput.clear();
     }
 }
