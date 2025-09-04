@@ -23,6 +23,5 @@ public class DeleteCmd extends Command {
         } else {
             return taskList.clear();
         }
-
     }
 }

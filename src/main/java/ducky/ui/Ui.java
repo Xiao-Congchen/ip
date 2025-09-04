@@ -10,11 +10,23 @@ import ducky.datahandling.TaskList;
 public class Ui {
     private static final String DIV_LINE = "\t-------------------------------------";
 
-    public void hello(String addOn) {
-        speak("Hi I'm Ducky!\n\tHow can I help you?" + addOn);
+    public String hello(String addOn) {
+        return "Hi I'm Ducky!\n\tHow can I help you?" + addOn;
     }
 
-    public void speak(String msg) {
+    public void helloCli(String addOn) {
+        speakCli("Hi I'm Ducky!\n\tHow can I help you?" + addOn);
+    }
+
+    public String speak(String msg) {
+        return msg;
+    }
+
+    /**
+     * Command Line version's speak function that prints to the screen directly
+     * @param msg
+     */
+    public void speakCli(String msg) {
         System.out.println(DIV_LINE);
         System.out.println("\t" + msg);
         System.out.println(DIV_LINE);

@@ -11,7 +11,7 @@
     <children>
         <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true">
          <HBox.margin>
-            <Insets bottom="60.0" left="7.0" right="7.0" />
+            <Insets bottom="30.0" left="7.0" right="7.0" />
          </HBox.margin>
          <padding>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -24,7 +24,7 @@
          <children>
               <ImageView fx:id="displayPicture" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
-                  <Insets bottom="20.0" />
+                  <Insets bottom="5.0" />
                </VBox.margin></ImageView>
          </children>
       </VBox>

@@ -25,6 +25,7 @@ public class MainGui extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(420);
             fxmlLoader.<MainWindow>getController().setDucky(ducky);  // inject the Ducky instance
+            fxmlLoader.<MainWindow>getController().startDucky();  // start Ducky
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

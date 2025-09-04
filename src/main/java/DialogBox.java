@@ -48,11 +48,23 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    public static DialogBox getDuckyDialog(String text, Image img) {
+    public static DialogBox getDuckyDialog(String text, Image img, String cmdType) {
         DialogBox db = new DialogBox(text, img);
         db.displayPicture.getStyleClass().add("ducky-picture");
         db.dialog.getStyleClass().add("reply-label");
         db.flip();
+
+        switch(cmdType) {
+        case "SUCCESS":
+            db.dialog.getStyleClass().add("success-label");
+            break;
+        case "LIST", "BYE", "HI":
+            db.dialog.getStyleClass().add("normal-label");
+            break;
+        case "DEL":
+            db.dialog.getStyleClass().add("error-label");
+            break;
+        }
         return db;
     }
 }

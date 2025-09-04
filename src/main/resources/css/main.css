@@ -1,8 +1,6 @@
 .root {
-    main-color: rgb(247, 229, 181);       /* Create a looked-up color called "main-color" within root. */
     -fx-background-image: url("../images/Ducky_Background.png"); /* Set image */
     -fx-background-size: cover;
-    -fx-background-color:main-color;
 }
 
 .text-field {
@@ -33,7 +31,7 @@
 
 .scroll-bar {
     -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+    -fx-background-color: rgb(233, 232, 232);
 }
 
 .scroll-bar .thumb {

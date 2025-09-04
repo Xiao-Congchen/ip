@@ -20,28 +20,36 @@ import java.util.Scanner;
  * Tasks are stored as specific types, namely ToDo, Deadline, and Event.
  */
 public class Ducky {
+    Ui ui;
+    Storage storage;
+    TaskList taskList;
+
+    public Ducky() {
+        ui = new Ui();
+        storage = new Storage(String.format("data%stasks.txt", File.separator));
+        taskList = new TaskList(storage.read(), storage, ui);  // Load in existing tasks, if any
+    }
+
     public static void main(String[] args) {
-        Ui ui = new Ui();
-        Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
-        TaskList taskList = new TaskList(storage.read(), storage, ui);  // Load in existing tasks, if any
+        Ducky ducky = new Ducky();
 
         String addOn = "";
-        if (!taskList.isEmpty()) {
+        if (!ducky.taskList.isEmpty()) {
             addOn = "\n\n\tOoo... I already see some of your tasks on my shelf!" +
                     "\n\tI can bring them to you with \"list\"!";
         }
-        ui.hello(addOn);
+        ducky.ui.hello(addOn);
 
         Scanner scanner = new Scanner(System.in);
         boolean isBye = false;
         while (!isBye) {
             try {
                 String command = scanner.nextLine().trim();
-                Command c = Parser.parse(command, taskList.size());
-                c.execute(ui, storage, taskList);
+                Command c = Parser.parse(command, ducky.taskList.size());
+                c.execute(ducky.ui, ducky.storage, ducky.taskList);
                 isBye = c.isBye();
             } catch (DuckyExceptions e) {
-                ui.speak(e.getMessage());
+                ducky.ui.speak(e.getMessage());
             }
         }
     }
@@ -53,9 +61,6 @@ public class Ducky {
      * @return Content string of Ducky's response, without paddings or indentations.
      */
     public String simulator(String input) {
-        Ui ui = new Ui();
-        Storage storage = new Storage(String.format("data%stasks.txt", File.separator));
-        TaskList taskList = new TaskList(storage.read(), storage, ui);
         try {
             Command c = Parser.parse(input, taskList.size());
             return c.execute(ui, storage, taskList);
@@ -64,10 +69,12 @@ public class Ducky {
         }
     }
 
-    /**
-     * Generates a response for the user's chat message.
-     */
-    public String getResponse(String input) {
-        return "Ducky heard: " + input;
+    public String welcome() {
+        String addOn = "";
+        if (!taskList.isEmpty()) {
+            addOn = "\n\n\tOoo... I already see some of your tasks on my shelf!" +
+                    "\n\tI can bring them to you with \"list\"!";
+        }
+        return ui.hello(addOn);
     }
 }

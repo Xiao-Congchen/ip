@@ -1,5 +1,6 @@
 import ducky.Ducky;
 
+import ducky.stringprocessing.Parser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for the main GUI.
@@ -37,6 +39,12 @@ public class MainWindow extends AnchorPane {
         ducky = d;
     }
 
+    public void startDucky() {
+        dialogContainer.getChildren().add(
+                DialogBox.getDuckyDialog(ducky.welcome(), duckyImage, "LIST")
+        );
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -45,10 +53,16 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = ducky.simulator(input);
+        String lastCmd = Parser.getLastCmd();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDuckyDialog(response, duckyImage)
+                DialogBox.getDuckyDialog(response, duckyImage, lastCmd)
         );
         userInput.clear();
+        if (lastCmd.equals("BYE")) {
+            Stage stage = (Stage) sendButton.getScene().getWindow();
+            stage.close(); // Close the program window
+            System.exit(0);  // Terminate program
+        }
     }
 }

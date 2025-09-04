@@ -29,6 +29,7 @@ import java.time.format.DateTimeParseException;
  * It will also throw the relevant exceptions faced while parsing.
  */
 public class Parser {
+    static String lastCmd = "SUCCESS";
     /**
      * Returns a specific Command object based on input.
      * Appropriate DuckyException will be thrown during the validation process.
@@ -39,10 +40,14 @@ public class Parser {
      * @throws DuckyExceptions if presence and type validations fail.
      */
     public static Command parse(String input, int listSize) throws DuckyExceptions {
-        if (input.isEmpty()) throw new EmptyCommandException();
+        if (input.isEmpty()) {
+            lastCmd = "ERROR";
+            throw new EmptyCommandException();
+        }
         String[] keywordAndRest = input.split(" ", 2);
         String cmdType = keywordAndRest[0].toUpperCase();
         if (keywordAndRest.length == 1 && keywordAndRest[0].equalsIgnoreCase("bye")) {
+            lastCmd = "BYE";
             return new ByeCmd();
         }
 
@@ -60,6 +65,7 @@ public class Parser {
         case "TODO":
             if (isValidDesc("Todo task", desc)) {
                 parsed.add(desc);
+                lastCmd = "SUCCESS";
                 return new AddCmd("T", parsed);
             }
 
@@ -68,11 +74,13 @@ public class Parser {
                 String[] descAndDate = input.split("/by", 2);
                 // Either no "/by" or "/by" is empty
                 if (descAndDate.length == 1) {
+                    lastCmd = "ERROR";
                     throw new EmptyDateException("'/by'");
                 }
                 LocalDateTime date = parseDate(descAndDate[1].trim(),"'/by'");
                 parsed.add(desc);
                 parsed.add(date);
+                lastCmd = "SUCCESS";
                 return new AddCmd("D", parsed);
             }
 
@@ -81,6 +89,7 @@ public class Parser {
                 String[] descAndFromTo = input.split("/from", 2);
                 // Either no "/from" or "/from" is empty
                 if (descAndFromTo.length == 1) {
+                    lastCmd = "ERROR";
                     throw new EmptyDateException("'/from'");
                 }
                 LocalDateTime from = parseDate(descAndFromTo[1].split("/to")[0].trim(), "'/from'");
@@ -88,56 +97,73 @@ public class Parser {
                 String[] fromAndTo = input.split("/to",2);
                 // Either no "/to" or "/to" is empty
                 if (fromAndTo.length == 1 ) {
+                    lastCmd = "ERROR";
                     throw new EmptyDateException("'/to'");
                 }
                 LocalDateTime to = parseDate(fromAndTo[1].trim(), "'/to'");
                 parsed.add(desc);
                 parsed.add(from);
                 parsed.add(to);
+                lastCmd = "SUCCESS";
                 return new AddCmd("E", parsed);
             }
 
         case "FIND":
+            lastCmd = "SUCCESS";
             return new FindCmd(desc);
 
         case "LIST":
+            lastCmd = "LIST";
             return new ListCmd();
 
         case "MARK":
             int markId = isValidateSelector(rest, "mark", listSize);
+            lastCmd = "SUCCESS";
             return new MarkCmd(markId, true);
 
         case "UNMARK":
             int unmarkId = isValidateSelector(rest, "unmark", listSize);
+            lastCmd = "SUCCESS";
             return new MarkCmd(unmarkId, false);
 
         case "DELETE":
             int delId = isValidateSelector(rest, "delete", listSize);
+            lastCmd = "DEL";
             return new DeleteCmd(delId);
 
         case "CLEARALL":
             // Negative taskId signals clear all (negative user input will lead to exception)
+            lastCmd = "DEL";
             return new DeleteCmd(-1);
 
         default:
+            lastCmd = "ERROR";
             throw new InvalidCommandException();
         }
     }
 
     private static boolean isValidDesc(String taskType, String desc) throws EmptyDescException {
         if (desc.isEmpty()) {
+            lastCmd = "ERROR";
             throw new EmptyDescException(taskType);
         }
         return true;
     }
 
     private static int isValidateSelector(String num, String selector, int listSize) throws DuckyExceptions {
-        if (num.isEmpty()) throw new EmptySelectorException(selector);
+        if (num.isEmpty()) {
+            lastCmd = "ERROR";
+            throw new EmptySelectorException(selector);
+        }
         try {
             int taskId = Integer.parseInt(num);
-            if (taskId < 1 || taskId > listSize) throw new InvalidSelectorException();
+            if (taskId < 1 || taskId > listSize) {
+                lastCmd = "ERROR";
+                throw new InvalidSelectorException();
+            }
             return taskId;
         } catch (NumberFormatException e) {
+            lastCmd = "ERROR";
             throw new InvalidSelectorException();
         }
     }
@@ -154,9 +180,15 @@ public class Parser {
             try {
                 return LocalDateTime.parse(date, customFormat);
             } catch (DateTimeParseException e) {
+                lastCmd = "ERROR";
                 throw new InvalidDateException(fieldName);
             }
         }
+        lastCmd = "ERROR";
         throw new InvalidDateException(fieldName);
+    }
+
+    public static String getLastCmd() {
+        return lastCmd;
     }
 }
