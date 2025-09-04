@@ -1,0 +1,50 @@
+.root {
+    main-color: rgb(247, 229, 181);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-image: url("../images/Ducky_Background.png"); /* Set image */
+    -fx-background-size: cover;
+    -fx-background-color:main-color;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-font: 15px "Arial";
+}
+
+.button {
+    -fx-background-color: rgb(233, 232, 232);
+    -fx-font: bold 15px "Arial";
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.button:hover {
+    -fx-background-color:rgb(166, 166, 166);
+    -fx-font-size: 16px;
+}
+
+.button:pressed {
+    -fx-background-color:rgb(133, 133, 133);
+    -fx-font-size: 16px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: grey;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

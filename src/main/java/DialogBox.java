@@ -28,7 +28,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -43,11 +42,16 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.displayPicture.getStyleClass().add("user-picture");
+        db.dialog.getStyleClass().add("dialog-label");
+        return db;
     }
 
     public static DialogBox getDuckyDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.displayPicture.getStyleClass().add("ducky-picture");
+        db.dialog.getStyleClass().add("reply-label");
         db.flip();
         return db;
     }

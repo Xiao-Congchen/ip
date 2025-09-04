@@ -24,10 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Ducky ducky;
 
-    private Image userImage = new Image(this.getClass()
-            .getResourceAsStream("/images/Gemini_Generated_Image_Pixel_Human.png"));
-    private Image duckyImage = new Image(this.getClass()
-            .getResourceAsStream("/images/Gemini_Generated_Image_Pixel_Rubber_Duck.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Pixel_human.png"));
+    private Image duckyImage = new Image(this.getClass().getResourceAsStream("/images/Pixel_ducky.png"));
 
     @FXML
     public void initialize() {
