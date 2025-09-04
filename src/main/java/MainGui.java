@@ -5,6 +5,7 @@ import ducky.Ducky;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -18,6 +19,10 @@ public class MainGui extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Ducky - Your quacking task assistant");
+            Image icon = new Image("/images/Pixel_ducky.png");
+            stage.getIcons().add(icon);
+
             FXMLLoader fxmlLoader = new FXMLLoader(MainGui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
