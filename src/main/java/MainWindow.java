@@ -1,6 +1,7 @@
 import ducky.Ducky;
 
 import ducky.stringprocessing.Parser;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -60,9 +62,14 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (lastCmd.equals("BYE")) {
-            Stage stage = (Stage) sendButton.getScene().getWindow();
-            stage.close(); // Close the program window
-            System.exit(0);  // Terminate program
+            // Delay closing so the last message is visible
+            PauseTransition delay = new PauseTransition(Duration.seconds(2.0));
+            delay.setOnFinished(event -> {
+                Stage stage = (Stage) sendButton.getScene().getWindow();
+                stage.close();
+                System.exit(0);
+            });
+            delay.play();
         }
     }
 }
