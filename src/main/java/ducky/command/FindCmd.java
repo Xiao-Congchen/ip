@@ -28,12 +28,12 @@ public class FindCmd extends Command {
             }
         }
         if (filteredTasks.isEmpty()) {
-            String msg = "I do not see any matching tasks floating around.\n\tTry another keyword!";
+            String msg = "I do not see any matching tasks floating around.\nTry another keyword!";
             ui.speak(msg);
             return msg;
         } else {
             TaskList filtered = new TaskList(filteredTasks, null, ui);
-            return filtered.list("Quack! You are in luck!\n\tI found some matching tasks\n\t");
+            return filtered.list("Quack! You are in luck!\nI found some matching tasks\n\t");
         }
     }
 }
