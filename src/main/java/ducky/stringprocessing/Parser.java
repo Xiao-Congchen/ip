@@ -8,7 +8,7 @@ import ducky.command.ListCmd;
 import ducky.command.MarkCmd;
 import ducky.command.DeleteCmd;
 
-import ducky.exception.DuckyExceptions;
+import ducky.exception.DuckyException;
 import ducky.exception.EmptyCommandException;
 import ducky.exception.EmptyDateException;
 import ducky.exception.InvalidCommandException;
@@ -37,9 +37,9 @@ public class Parser {
      * @param input User-defined command string.
      * @param listSize Size of current task list.
      * @return Command object.
-     * @throws DuckyExceptions if presence and type validations fail.
+     * @throws DuckyException if presence and type validations fail.
      */
-    public static Command parse(String input, int listSize) throws DuckyExceptions {
+    public static Command parse(String input, int listSize) throws DuckyException {
         if (input.isEmpty()) {
             lastCmd = "ERROR";
             throw new EmptyCommandException();
@@ -150,7 +150,7 @@ public class Parser {
         return true;
     }
 
-    private static int isValidateSelector(String num, String selector, int listSize) throws DuckyExceptions {
+    private static int isValidateSelector(String num, String selector, int listSize) throws DuckyException {
         if (num.isEmpty()) {
             lastCmd = "ERROR";
             throw new EmptySelectorException(selector);

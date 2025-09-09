@@ -2,7 +2,7 @@ package ducky;
 
 import ducky.command.Command;
 import ducky.datahandling.TaskList;
-import ducky.exception.DuckyExceptions;
+import ducky.exception.DuckyException;
 import ducky.stringprocessing.Parser;
 import ducky.datahandling.Storage;
 import ducky.ui.Ui;
@@ -48,7 +48,7 @@ public class Ducky {
                 Command c = Parser.parse(command, ducky.taskList.size());
                 c.execute(ducky.ui, ducky.storage, ducky.taskList);
                 isBye = c.isBye();
-            } catch (DuckyExceptions e) {
+            } catch (DuckyException e) {
                 ducky.ui.speak(e.getMessage());
             }
         }
@@ -64,7 +64,7 @@ public class Ducky {
         try {
             Command c = Parser.parse(input, taskList.size());
             return c.execute(ui, storage, taskList);
-        } catch (DuckyExceptions e) {
+        } catch (DuckyException e) {
             return e.getMessage();
         }
     }

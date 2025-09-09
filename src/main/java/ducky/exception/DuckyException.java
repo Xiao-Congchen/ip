@@ -5,8 +5,8 @@
 
 package ducky.exception;
 
-public class DuckyExceptions extends Exception {
-    public DuckyExceptions(String msg) {
+public class DuckyException extends Exception {
+    public DuckyException(String msg) {
         super(msg);
     }
 }

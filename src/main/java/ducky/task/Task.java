@@ -1,7 +1,7 @@
 package ducky.task;
 
 import ducky.stringprocessing.Parser;
-import ducky.exception.DuckyExceptions;
+import ducky.exception.DuckyException;
 
 /**
  * Represents an abstract task with a description and a marked status.
@@ -36,7 +36,7 @@ public abstract class Task {
      * @param variables A string array of task type, marked indicator and any other fields
      * @return ducky.task.Task object
      */
-    public static Task createAppropriateTask(String[] variables) throws DuckyExceptions {
+    public static Task createAppropriateTask(String[] variables) throws DuckyException {
         String taskType = variables[0];
         boolean isDone = variables[1].equals("1");
         String desc = variables[2];
