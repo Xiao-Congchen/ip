@@ -8,6 +8,9 @@ import ducky.command.ListCmd;
 import ducky.command.MarkCmd;
 import ducky.command.DeleteCmd;
 
+import ducky.datahandling.TaskList;
+import ducky.exception.DateConflictException;
+import ducky.exception.DateRangeException;
 import ducky.exception.DuckyException;
 import ducky.exception.EmptyCommandException;
 import ducky.exception.EmptyDateException;
@@ -41,7 +44,7 @@ public class Parser {
      * @return Command object.
      * @throws DuckyException if presence and type validations fail.
      */
-    public static Command parse(String input, int listSize) throws DuckyException {
+    public static Command parse(String input, TaskList tasklist, int listSize) throws DuckyException {
         if (input.isEmpty()) {
             lastCmd = "ERROR";
             throw new EmptyCommandException();
@@ -103,6 +106,16 @@ public class Parser {
                     throw new EmptyDateException("'/to'");
                 }
                 LocalDateTime to = parseDate(fromAndTo[1].trim(), "'/to'");
+
+                if (to.isBefore(from)) {
+                    lastCmd = "ERROR";
+                    throw new DateRangeException();
+                }
+                int indexOfConflict = tasklist.findConflict(from, to);
+                if (indexOfConflict > 0) {
+                    lastCmd = "ERROR";
+                    throw new DateConflictException("event", indexOfConflict);
+                }
                 parsed.add(desc);
                 parsed.add(from);
                 parsed.add(to);

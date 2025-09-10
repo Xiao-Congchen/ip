@@ -66,6 +66,24 @@ public class TaskList {
     }
 
     /**
+     * Finds the index of the conflicting tasks (events)
+     * @param start Provided start time
+     * @param end Provide end time
+     * @return 0 for no conflict or the index of the conflicting task
+     */
+    public int findConflict(LocalDateTime start, LocalDateTime end) {
+        for (Task task:memory) {
+            if (task.getClass() == Event.class) {
+                boolean hasConflict = ((Event) task).isConflict(start, end);
+                if (hasConflict) {
+                    return memory.indexOf(task) + 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
      * Returns the current task list in String form.
      * @return Task list in a String list form.
      */

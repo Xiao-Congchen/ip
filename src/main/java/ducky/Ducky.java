@@ -45,7 +45,7 @@ public class Ducky {
         while (!isBye) {
             try {
                 String command = scanner.nextLine().trim();
-                Command c = Parser.parse(command, ducky.taskList.size());
+                Command c = Parser.parse(command, ducky.taskList, ducky.taskList.size());
                 c.execute(ducky.ui, ducky.storage, ducky.taskList);
                 isBye = c.isBye();
             } catch (DuckyException e) {
@@ -62,7 +62,7 @@ public class Ducky {
      */
     public String simulator(String input) {
         try {
-            Command c = Parser.parse(input, taskList.size());
+            Command c = Parser.parse(input, taskList, taskList.size());
             return c.execute(ui, storage, taskList);
         } catch (DuckyException e) {
             return e.getMessage();
