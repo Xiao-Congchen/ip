@@ -24,7 +24,7 @@ public class Storage {
         this.path = path;
     }
 
-    public boolean save(ArrayList<Task> tasks) {
+    public boolean write(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(String.valueOf(path));
             for (Task task : tasks) {

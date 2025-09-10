@@ -31,6 +31,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
     }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -55,6 +56,7 @@ public class DialogBox extends HBox {
         db.flip();
 
         switch(cmdType) {
+        // Sets the styling (color) of the dialog boxes
         case "SUCCESS":
             db.dialog.getStyleClass().add("success-label");
             break;

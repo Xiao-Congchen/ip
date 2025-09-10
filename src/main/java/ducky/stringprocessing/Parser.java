@@ -119,17 +119,17 @@ public class Parser {
             return new ListCmd();
 
         case "MARK":
-            int markId = isValidateSelector(rest, "mark", listSize);
+            int markId = isValidSelector(rest, "mark", listSize);
             lastCmd = "SUCCESS";
             return new MarkCmd(markId, true);
 
         case "UNMARK":
-            int unmarkId = isValidateSelector(rest, "unmark", listSize);
+            int unmarkId = isValidSelector(rest, "unmark", listSize);
             lastCmd = "SUCCESS";
             return new MarkCmd(unmarkId, false);
 
         case "DELETE":
-            int delId = isValidateSelector(rest, "delete", listSize);
+            int delId = isValidSelector(rest, "delete", listSize);
             assert delId >= 0;  // isValidateSelector should only return a valid id
             lastCmd = "DEL";
             return new DeleteCmd(delId);
@@ -153,7 +153,7 @@ public class Parser {
         return true;
     }
 
-    private static int isValidateSelector(String num, String selector, int listSize) throws DuckyException {
+    private static int isValidSelector(String num, String selector, int listSize) throws DuckyException {
         if (num.isEmpty()) {
             lastCmd = "ERROR";
             throw new EmptySelectorException(selector);

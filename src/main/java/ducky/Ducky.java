@@ -34,7 +34,7 @@ public class Ducky {
         Ducky ducky = new Ducky();
 
         String addOn = "";
-        if (!ducky.taskList.isEmpty()) {
+        if (ducky.taskList.isNotEmpty()) {
             addOn = "\n\n\tOoo... I already see some of your tasks on my shelf!" +
                     "\n\tI can bring them to you with \"list\"!";
         }
@@ -71,7 +71,7 @@ public class Ducky {
 
     public String welcome() {
         String addOn = "";
-        if (!taskList.isEmpty()) {
+        if (taskList.isNotEmpty()) {
             addOn = "\n\nOoo... I already see some of your tasks on my shelf!" +
                     "\nI can bring them to you with \"list\"!";
         }

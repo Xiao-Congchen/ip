@@ -19,11 +19,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    private String getStat() {
+    private String getDoneStatus() {
         return (isDone ? "X" : " ");
     }
 
-    public void setStat(Boolean status) {
+    public void setDoneStatus(Boolean status) {
         this.isDone = status;
     }
 
@@ -62,6 +62,6 @@ public abstract class Task {
 
    @Override
     public String toString() {
-        return String.format("[%s] %s", getStat(), this.desc);
+        return String.format("[%s] %s", getDoneStatus(), this.desc);
    }
 }

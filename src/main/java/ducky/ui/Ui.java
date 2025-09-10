@@ -41,7 +41,7 @@ public class Ui {
     public String bye(Storage storage, TaskList taskList) {
         String msg = "Bye bye! See you soon!";
         speak(msg);
-        if (!storage.save(taskList.getAll())) {
+        if (!storage.write(taskList.getAll())) {
             msg = "Your tasks have been lost to the pond... Quack...";
             speak(msg);
         };
