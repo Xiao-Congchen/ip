@@ -1,6 +1,6 @@
 package ducky.task;
 
-import ducky.stringprocessing.Parser;
+import ducky.inputprocessing.Parser;
 import ducky.exception.DuckyException;
 
 /**

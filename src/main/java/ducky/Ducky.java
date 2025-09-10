@@ -3,7 +3,7 @@ package ducky;
 import ducky.command.Command;
 import ducky.datahandling.TaskList;
 import ducky.exception.DuckyException;
-import ducky.stringprocessing.Parser;
+import ducky.inputprocessing.Parser;
 import ducky.datahandling.Storage;
 import ducky.ui.Ui;
 

@@ -1,4 +1,4 @@
-package ducky.stringprocessing;
+package ducky.inputprocessing;
 
 import ducky.command.Command;
 import ducky.command.AddCmd;

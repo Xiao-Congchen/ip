@@ -1,4 +1,4 @@
-package ducky.stringprocessing;
+package ducky.inputprocessing;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
