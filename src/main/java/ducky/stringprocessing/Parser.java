@@ -29,7 +29,9 @@ import java.time.format.DateTimeParseException;
  * It will also throw the relevant exceptions faced while parsing.
  */
 public class Parser {
+    // lastCmd can be used to determine dialog box styling and program termination
     static String lastCmd = "SUCCESS";
+
     /**
      * Returns a specific Command object based on input.
      * Appropriate DuckyException will be thrown during the validation process.
@@ -46,7 +48,7 @@ public class Parser {
         }
         String[] keywordAndRest = input.split(" ", 2);
         String cmdType = keywordAndRest[0].toUpperCase();
-        if (keywordAndRest.length == 1 && keywordAndRest[0].equalsIgnoreCase("bye")) {
+        if (keywordAndRest[0].equalsIgnoreCase("bye")) {
             lastCmd = "BYE";
             return new ByeCmd();
         }
@@ -128,6 +130,7 @@ public class Parser {
 
         case "DELETE":
             int delId = isValidateSelector(rest, "delete", listSize);
+            assert delId >= 0;  // isValidateSelector should only return a valid id
             lastCmd = "DEL";
             return new DeleteCmd(delId);
 

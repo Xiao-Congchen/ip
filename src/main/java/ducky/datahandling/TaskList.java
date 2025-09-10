@@ -34,6 +34,7 @@ public class TaskList {
      * @return Confirmation or error message.
      */
     public String addTask(String type, ArrayList<Object> vars) {
+        assert !type.isEmpty();
         String msg = "";
         switch(type) {
         case "T":
@@ -51,6 +52,7 @@ public class TaskList {
     }
 
     private String addTaskHelper(Task newTask) {
+        assert newTask != null;
         memory.add(newTask);
         String addOn = "";
         if (!storage.save(memory)) {
