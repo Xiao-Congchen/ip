@@ -55,13 +55,13 @@ public class TaskList {
         assert newTask != null;
         memory.add(newTask);
         String addOn = "";
-        if (!storage.save(memory)) {
+        if (!storage.write(memory)) {
             addOn = "\nBut I couldn't send this task to the clouds... Quack...";
         };
         String msg = String.format("Gotcha! I've added:\n\t%s\nNow you have a total of %d tasks.%s",
                 memory.get(memory.size()-1), memory.size(), addOn);
         ui.speak(msg);
-        storage.save(memory);
+        storage.write(memory);
         return msg;
     }
 
@@ -92,7 +92,7 @@ public class TaskList {
      * @return Confirmation string.
      */
     public String toggleMark(int taskId, Boolean markState) {
-        memory.get(taskId - 1).setStat(markState);
+        memory.get(taskId - 1).setDoneStatus(markState);
         String msg = String.format("Quack! I've marked this task as %s!\n\t%s",
                 markState ? "done" : "not done", memory.get(taskId - 1));
         ui.speak(msg);
@@ -110,12 +110,8 @@ public class TaskList {
         String msg = String.format("Noms! I've gobbled up:\n\t%s\nNow you have a total of %d tasks!",
                 temp, memory.size());
         ui.speak(msg);
-        storage.save(memory);
+        storage.write(memory);
         return msg;
-    }
-
-    public Task get(int index) {
-        return memory.get(index);
     }
 
     public ArrayList<Task> getAll() {
@@ -126,24 +122,19 @@ public class TaskList {
         return memory.size();
     }
 
-    public void remove(int index) {
-        memory.remove(index);
-    }
-
     /**
      * Clears the entire task list and updates local task list file.
      * @return Confirmation string.
      */
-    public String clear() {
+    public String clearAllTasks() {
         memory.clear();
         String msg = "I've cleared all your tasks!\nGood job and keep on quacking!";
         ui.speak(msg);
-        storage.save(memory);
+        storage.write(memory);
         return msg;
     }
 
-    public boolean isEmpty() {
-        return memory.isEmpty();
-
+    public boolean isNotEmpty() {
+        return !memory.isEmpty();
     }
 }

@@ -21,7 +21,7 @@ public class DeleteCmd extends Command {
         if (taskId > 0) {
             return taskList.delete(taskId);
         } else {
-            return taskList.clear();
+            return taskList.clearAllTasks();
         }
     }
 }
