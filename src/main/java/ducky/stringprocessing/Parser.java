@@ -48,7 +48,7 @@ public class Parser {
         }
         String[] keywordAndRest = input.split(" ", 2);
         String cmdType = keywordAndRest[0].toUpperCase();
-        if (keywordAndRest.length == 1 && keywordAndRest[0].equalsIgnoreCase("bye")) {
+        if (keywordAndRest[0].equalsIgnoreCase("bye")) {
             lastCmd = "BYE";
             return new ByeCmd();
         }
