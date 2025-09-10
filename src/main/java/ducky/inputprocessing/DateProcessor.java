@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  *
  * Helps to convert a LocalDateTime object into a human-friendly date representation
  */
-public class StringifyDate {
+public class DateProcessor {
     public static String friendlyDate(LocalDateTime dateTime) {
         String niceDateTime = dateTime.format(DateTimeFormatter.ofPattern("d'th' MMMM yyyy, h:mma"));
         // Replace the th with appropriate suffixes

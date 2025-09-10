@@ -1,6 +1,6 @@
 package ducky.task;
 
-import ducky.inputprocessing.StringifyDate;
+import ducky.inputprocessing.DateProcessor;
 import java.time.LocalDateTime;
 
 /**
@@ -28,6 +28,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + String.format(" (From: %s To: %s)",
-                StringifyDate.friendlyDate(this.from), StringifyDate.friendlyDate(this.to));
+                DateProcessor.friendlyDate(this.from), DateProcessor.friendlyDate(this.to));
     }
 }

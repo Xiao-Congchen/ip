@@ -1,6 +1,6 @@
 package ducky.task;
 
-import ducky.inputprocessing.StringifyDate;
+import ducky.inputprocessing.DateProcessor;
 import java.time.LocalDateTime;
 
 /**
@@ -23,6 +23,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (By: %s)", StringifyDate.friendlyDate(this.by));
+        return "[D]" + super.toString() + String.format(" (By: %s)", DateProcessor.friendlyDate(this.by));
     }
 }
