@@ -56,106 +56,108 @@ public class Parser {
             return new ByeCmd();
         }
 
-        ArrayList<Object> parsed = new ArrayList<Object>();
-
-        String rest;
-        if (keywordAndRest.length == 2) {
-            rest = keywordAndRest[1];
-        } else {
-            rest = "";
-        }
-
+        String rest = keywordAndRest.length == 2 ? keywordAndRest[1] : "";
         String desc = rest.split("/")[0].trim();
+
         switch (cmdType) {
+        // Claude Sonnet 3.5 used to abstract out todo, deadline and event parsing into separate methods
         case "TODO":
-            if (isValidDesc("Todo task", desc)) {
-                parsed.add(desc);
-                lastCmd = "SUCCESS";
-                return new AddCmd("T", parsed);
-            }
-
-        case "DEADLINE": // Deadline
-            if (isValidDesc("Deadline task", desc)) {
-                String[] descAndDate = input.split("/by", 2);
-                // Either no "/by" or "/by" is empty
-                if (descAndDate.length == 1) {
-                    lastCmd = "ERROR";
-                    throw new EmptyDateException("'/by'");
-                }
-                LocalDateTime date = parseDate(descAndDate[1].trim(),"'/by'");
-                parsed.add(desc);
-                parsed.add(date);
-                lastCmd = "SUCCESS";
-                return new AddCmd("D", parsed);
-            }
-
+            return handleTodoCommand(desc);
+        case "DEADLINE":
+            return handleDeadlineCommand(input, desc);
         case "EVENT":
-            if (isValidDesc("Event", desc)) {
-                String[] descAndFromTo = input.split("/from", 2);
-                // Either no "/from" or "/from" is empty
-                if (descAndFromTo.length == 1) {
-                    lastCmd = "ERROR";
-                    throw new EmptyDateException("'/from'");
-                }
-                LocalDateTime from = parseDate(descAndFromTo[1].split("/to")[0].trim(), "'/from'");
-
-                String[] fromAndTo = input.split("/to",2);
-                // Either no "/to" or "/to" is empty
-                if (fromAndTo.length == 1 ) {
-                    lastCmd = "ERROR";
-                    throw new EmptyDateException("'/to'");
-                }
-                LocalDateTime to = parseDate(fromAndTo[1].trim(), "'/to'");
-
-                if (to.isBefore(from)) {
-                    lastCmd = "ERROR";
-                    throw new DateRangeException();
-                }
-                int indexOfConflict = tasklist.findConflict(from, to);
-                if (indexOfConflict > 0) {
-                    lastCmd = "ERROR";
-                    throw new DateConflictException("event", indexOfConflict);
-                }
-                parsed.add(desc);
-                parsed.add(from);
-                parsed.add(to);
-                lastCmd = "SUCCESS";
-                return new AddCmd("E", parsed);
-            }
-
+            return handleEventCommand(input, desc, tasklist);
         case "FIND":
             lastCmd = "SUCCESS";
             return new FindCmd(desc);
-
         case "LIST":
             lastCmd = "LIST";
             return new ListCmd();
-
         case "MARK":
             int markId = isValidSelector(rest, "mark", listSize);
             lastCmd = "SUCCESS";
             return new MarkCmd(markId, true);
-
         case "UNMARK":
             int unmarkId = isValidSelector(rest, "unmark", listSize);
             lastCmd = "SUCCESS";
             return new MarkCmd(unmarkId, false);
-
         case "DELETE":
             int delId = isValidSelector(rest, "delete", listSize);
             assert delId >= 0;  // isValidateSelector should only return a valid id
             lastCmd = "DEL";
             return new DeleteCmd(delId);
-
         case "CLEARALL":
-            // Negative taskId signals clear all (negative user input will lead to exception)
             lastCmd = "DEL";
             return new DeleteCmd(-1);
-
         default:
             lastCmd = "ERROR";
             throw new InvalidCommandException();
         }
+    }
+
+    private static Command handleTodoCommand(String desc) throws EmptyDescException {
+        if (isValidDesc("Todo task", desc)) {
+            ArrayList<Object> parsed = new ArrayList<>();
+            parsed.add(desc);
+            lastCmd = "SUCCESS";
+            return new AddCmd("T", parsed);
+        }
+        return null;
+    }
+
+    private static Command handleDeadlineCommand(String input, String desc) throws DuckyException {
+        if (isValidDesc("Deadline task", desc)) {
+            String[] descAndDate = input.split("/by", 2);
+            // Either no "/by" or no date after "/by"
+            if (descAndDate.length == 1) {
+                lastCmd = "ERROR";
+                throw new EmptyDateException("'/by'");
+            }
+            LocalDateTime date = parseDate(descAndDate[1].trim(), "'/by'");
+            ArrayList<Object> parsed = new ArrayList<>();
+            parsed.add(desc);
+            parsed.add(date);
+            lastCmd = "SUCCESS";
+            return new AddCmd("D", parsed);
+        }
+        return null;
+    }
+
+    private static Command handleEventCommand(String input, String desc, TaskList tasklist) throws DuckyException {
+        if (isValidDesc("Event", desc)) {
+            String[] descAndFromTo = input.split("/from", 2);
+            // Either no "/from" or no date after "/from"
+            if (descAndFromTo.length == 1) {
+                lastCmd = "ERROR";
+                throw new EmptyDateException("'/from'");
+            }
+            LocalDateTime from = parseDate(descAndFromTo[1].split("/to")[0].trim(), "'/from'");
+
+            String[] fromAndTo = input.split("/to", 2);
+            // Either no "/to" or no date after "/to"
+            if (fromAndTo.length == 1) {
+                lastCmd = "ERROR";
+                throw new EmptyDateException("'/to'");
+            }
+            LocalDateTime to = parseDate(fromAndTo[1].trim(), "'/to'");
+
+            if (to.isBefore(from)) {
+                lastCmd = "ERROR";
+                throw new DateRangeException();
+            }
+            int indexOfConflict = tasklist.findConflict(from, to);
+            if (indexOfConflict > 0) {
+                lastCmd = "ERROR";
+                throw new DateConflictException("event", indexOfConflict);
+            }
+            ArrayList<Object> parsed = new ArrayList<>();
+            parsed.add(desc);
+            parsed.add(from);
+            parsed.add(to);
+            lastCmd = "SUCCESS";
+            return new AddCmd("E", parsed);
+        }
+        return null;
     }
 
     private static boolean isValidDesc(String taskType, String desc) throws EmptyDescException {
