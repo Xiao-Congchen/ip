@@ -45,6 +45,7 @@ public class Parser {
      * @throws DuckyException if presence and type validations fail.
      */
     public static Command parse(String input, TaskList tasklist, int listSize) throws DuckyException {
+        input = input.trim(); // Removes leading and trailing spaces
         if (input.isEmpty()) {
             lastCmd = "ERROR";
             throw new EmptyCommandException();
