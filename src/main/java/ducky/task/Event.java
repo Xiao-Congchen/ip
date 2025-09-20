@@ -44,7 +44,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (From: %s To: %s)",
+        return String.format("[%s]", getDoneStatus()) + "[E] " + super.toString() + String.format(" (From: %s | To: %s)",
                 DateProcessor.friendlyDate(this.from), DateProcessor.friendlyDate(this.to));
     }
 }

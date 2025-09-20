@@ -58,7 +58,7 @@ public class TaskList {
         if (!storage.write(memory)) {
             addOn = "\nBut I couldn't send this task to the clouds... Quack...";
         };
-        String msg = String.format("Gotcha! I've added:\n\t%s\nNow you have a total of %d tasks.%s",
+        String msg = String.format("Gotcha! I've added:\n\t%s\nNow you have a total of %d task(s).%s",
                 memory.get(memory.size()-1), memory.size(), addOn);
         ui.speak(msg);
         storage.write(memory);
@@ -96,7 +96,7 @@ public class TaskList {
         if (content.isEmpty()) {
             msg = "I do not see any tasks on my shelf.\nTry adding some!";
         } else {
-            String basic = "Here is your Task List! Quackk\n\t";
+            String basic = "Here is your Task list! Quackk:\n\t";
             msg = (custom.isBlank() ? basic : custom) + content.toString().trim();
         }
         ui.speak(msg);
@@ -125,7 +125,7 @@ public class TaskList {
     public String delete(int taskId) {
         Task temp = memory.get(taskId - 1);
         memory.remove(taskId - 1);
-        String msg = String.format("Noms! I've gobbled up:\n\t%s\nNow you have a total of %d tasks!",
+        String msg = String.format("Noms! I've gobbled up:\n\t%s\nNow you have a total of %d task(s)!",
                 temp, memory.size());
         ui.speak(msg);
         storage.write(memory);
