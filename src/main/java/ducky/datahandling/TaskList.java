@@ -57,8 +57,8 @@ public class TaskList {
         String addOn = "";
         if (!storage.write(memory)) {
             addOn = "\nBut I couldn't send this task to the clouds... Quack...";
-        };
-        String msg = String.format("Gotcha! I've added:\n\t%s\nNow you have a total of %d task(s).%s",
+        }
+        String msg = String.format("Quack-tastic! I've added this task to our list:\n\t%s\nWe now have %d task(s)!%s",
                 memory.get(memory.size()-1), memory.size(), addOn);
         ui.speak(msg);
         storage.write(memory);
@@ -94,9 +94,9 @@ public class TaskList {
         }
         String msg = "";
         if (content.isEmpty()) {
-            msg = "I do not see any tasks on my shelf.\nTry adding some!";
+            msg = "Hmm... my shelf is empty! Let's add some tasks to make it quack-worthy!";
         } else {
-            String basic = "Here is your Task list! Quackk:\n\t";
+            String basic = "Here's your task list! Quack-quack:\n\t";
             msg = (custom.isBlank() ? basic : custom) + content.toString().trim();
         }
         ui.speak(msg);

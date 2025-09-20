@@ -3,9 +3,10 @@ package ducky.exception;
 public class EmptyCommandException extends EmptyException {
     public EmptyCommandException() {
         super("""
-                Quack quack? Let me know what you'd like to do!
+                Quack quack? What shall we do today?
                 \t\
-                You can try:
-                \ttodo, deadline, event, list, mark, unmark, delete, bye""");
+                Try one of these:
+                \ttodo, deadline, event, list, mark, unmark, delete, bye.
+                """);
     }
 }
