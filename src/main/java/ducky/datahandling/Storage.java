@@ -22,6 +22,23 @@ public class Storage {
 
     public Storage(String path) {
         this.path = path;
+        ensureDirectoryExists();
+    }
+
+    /** Ensures that the directory for the specified path exists.
+     * If it does not exist, it attempts to create it.
+     */
+    private void ensureDirectoryExists() {
+        File file = new File(path);
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            boolean isCreated = parentDir.mkdirs();
+            if (isCreated) {
+                System.out.println("Created the directory at " + parentDir.getAbsolutePath());
+            } else {
+                System.out.println("Couldn't create the directory at " + parentDir.getAbsolutePath());
+            }
+        }
     }
 
     public boolean write(ArrayList<Task> tasks) {
