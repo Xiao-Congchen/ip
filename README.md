@@ -1,6 +1,6 @@
 # Ducky - Your Quacking Task Assistant
 
-<img src="../src/main/resources/images/Pixel_ducky.png" alt="Ducky" width="120" />
+<img src="/src/main/resources/images/Pixel_ducky.png" alt="Ducky" width="120" />
 
 > Ducky is a friendly desktop task management chatbot that helps you keep track of your
 > **_tasks_**, **_deadlines_**, and **_events_**. <br/>
