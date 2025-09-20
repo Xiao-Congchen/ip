@@ -125,7 +125,7 @@ public class TaskList {
     public String delete(int taskId) {
         Task temp = memory.get(taskId - 1);
         memory.remove(taskId - 1);
-        String msg = String.format("Noms! I've gobbled up:\n\t%s\nNow you have a total of %d task(s)!",
+        String msg = String.format("Noms! I've gobbled up:\n\t%s\nYou are left with %d task(s)!",
                 temp, memory.size());
         ui.speak(msg);
         storage.write(memory);

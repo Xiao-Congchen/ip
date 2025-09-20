@@ -33,7 +33,7 @@ public class FindCmd extends Command {
             return msg;
         } else {
             TaskList filtered = new TaskList(filteredTasks, null, ui);
-            return filtered.list("Quack! You are in luck!\nI found some matching tasks\n\t");
+            return filtered.list("Quack! You are in luck!\nI found some matching tasks:\n\t");
         }
     }
 }
