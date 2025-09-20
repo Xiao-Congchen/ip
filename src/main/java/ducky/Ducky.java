@@ -26,7 +26,7 @@ public class Ducky {
 
     public Ducky() {
         ui = new Ui();
-        storage = new Storage(String.format("data%stasks.txt", File.separator));
+        storage = new Storage(String.format("data%sducky_tasks.txt", File.separator));
         taskList = new TaskList(storage.read(), storage, ui);  // Load in existing tasks, if any
     }
 
